@@ -58,7 +58,11 @@ AUTHENTICATION_BACKENDS = (
     # "allauth.account.auth_backends.AuthenticationBackend",
 )
 
-SITE_ID = 2
+if 'HEROKU' in os.environ:
+    SITE_ID = 3
+else:
+    SITE_ID = 2
+    
 ACCOUNT_EMAIL_VERIFICATION = 'none'
 LOGIN_REDIRECT_URL = 'home'
 

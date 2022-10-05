@@ -17,7 +17,7 @@ import os
 env = environ.Env()
 environ.Env.read_env()
 
-if 'HEROKU' in os.environ:
+if 'DATABASE_URL' in os.environ:
     SITE_ID = 3
 else:
     SITE_ID = 2

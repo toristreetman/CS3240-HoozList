@@ -42,6 +42,7 @@ ALLOWED_HOSTS = ['127.0.0.1',
 # Application definition
 
 INSTALLED_APPS = [
+    'bootstrap5',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -152,7 +153,7 @@ STATIC_URL = 'static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static'),] #bootstrap- to specify more than one static directory
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
@@ -185,7 +186,18 @@ SOCIALACCOUNT_PROVIDERS = {
         }
     }
 }
-
+SOCIALACCOUNT_PROVIDERS = {
+    'google': {
+        # For each OAuth based provider, either add a ``SocialApp``
+        # (``socialaccount`` app) containing the required client
+        # credentials, or list them here:
+        'APP': {
+            'client_id': '660547282894-nbii53s0tbp8om0le3er2n1l7g420e6n.apps.googleusercontent.com',
+            'secret': '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',
+            'key': ''
+        }
+    }
+}
 try:
     if 'HEROKU' in os.environ:
         import django_heroku 

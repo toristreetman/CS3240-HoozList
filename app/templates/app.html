@@ -1,4 +1,10 @@
 {% load socialaccount %}
+
+{% load static %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'app/css/bootstrap.css' %}"/>
+<img src="{%static 'app/images/UVA-Logo.png'%}" class="img-fluid" style="width:10%">
+
 <html>
 
 <head>
@@ -7,9 +13,12 @@
 
 <body>
     {% if user.is_authenticated %}
-        <h1>Lou's List v2</h1>
-        <p>You are now signed in as {{ user.username }}.</p>
-
+    <div class="d-flex justify-content-center">
+    <h1>Lou's List v2</h1>
+</div>
+<div class="d-flex justify-content-center">
+    <p>You are now signed in as {{ user.username }}.</p>
+</div>
     {% else %}
         <h1>Lou's List v2</h1>
         <a href="{% provider_login_url 'google' %}">Login with Google</a>

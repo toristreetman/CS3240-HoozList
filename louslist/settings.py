@@ -18,7 +18,7 @@ env = environ.Env()
 environ.Env.read_env()
 
 if 'DATABASE_URL' in os.environ:
-    SITE_ID = 3
+    SITE_ID = 4
 else:
     SITE_ID = 4
  

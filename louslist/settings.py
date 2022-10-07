@@ -20,8 +20,10 @@ environ.Env.read_env()
 if 'DATABASE_URL' in os.environ:
     SITE_ID = 3
 else:
-    SITE_ID = 2
-    
+    SITE_ID = 4
+ 
+
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -186,7 +188,8 @@ SOCIALACCOUNT_PROVIDERS = {
         }
     }
 }
-SOCIALACCOUNT_PROVIDERS = {
+
+""" SOCIALACCOUNT_PROVIDERS = {
     'google': {
         # For each OAuth based provider, either add a ``SocialApp``
         # (``socialaccount`` app) containing the required client
@@ -197,7 +200,7 @@ SOCIALACCOUNT_PROVIDERS = {
             'key': ''
         }
     }
-}
+} """
 try:
     if 'HEROKU' in os.environ:
         import django_heroku 

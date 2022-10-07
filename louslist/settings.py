@@ -18,7 +18,7 @@ env = environ.Env()
 environ.Env.read_env()
 
 if 'DATABASE_URL' in os.environ:
-    SITE_ID = 3
+    SITE_ID = 1
 else:
     SITE_ID = 4
  
@@ -157,7 +157,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 #STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static'),] #bootstrap- to specify more than one static directory (KT)
-#STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage' #speeds up deployment in Heroku - not necessary, delete if causing errors (KT)
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage' #speeds up deployment in Heroku - not necessary, delete if causing errors (KT)
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 

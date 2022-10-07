@@ -40,7 +40,7 @@ DEBUG = True
 ALLOWED_HOSTS = ['127.0.0.1', 
     'localhost',
     'uva-cs3240-f22-a14.herokuapp.com',
-    'project-a-14-test.herokuapp.com']
+    'project-a-14-test.herokuapp.com'] #Kousuke's Heroku app for testing
 
 # Application definition
 
@@ -156,7 +156,8 @@ STATIC_URL = 'static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static'),] #bootstrap- to specify more than one static directory
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static'),] #bootstrap- to specify more than one static directory (KT)
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage' #speeds up deployment in Heroku - not necessary, delete if causing errors (KT)
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 

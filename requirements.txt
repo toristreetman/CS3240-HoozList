@@ -1,6 +1,6 @@
 Django
-django_heroku
-django_environ
+django-heroku
+django-environ
 dj_database_url
 django-allauth
 #psycopg2-binary

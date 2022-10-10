@@ -35,7 +35,7 @@
       
         <ul class="socialaccount_providers">
 
-          <a href="{% include 'socialaccount/snippets/provider_list.html' with process='login' %}">
+          {% include 'socialaccount/snippets/provider_list.html' with process='login' %}
             
           <img src="{%static 'app/images/google-logo.png'%}" style="width: 10%;"/>
         </a>

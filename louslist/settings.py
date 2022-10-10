@@ -18,10 +18,12 @@ env = environ.Env()
 environ.Env.read_env()
 
 if 'DATABASE_URL' in os.environ:
-    SITE_ID = 3
+    SITE_ID = 4
 else:
-    SITE_ID = 2
-    
+    SITE_ID = 4
+ 
+
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -37,11 +39,13 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['127.0.0.1', 
     'localhost',
-    'uva-cs3240-f22-a14.herokuapp.com']
+    'uva-cs3240-f22-a14.herokuapp.com',
+    'project-a-14-test.herokuapp.com'] #Kousuke's Heroku app for testing
 
 # Application definition
 
 INSTALLED_APPS = [
+    'bootstrap5',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -148,11 +152,12 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-
+#STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static'),] #bootstrap- to specify more than one static directory (KT)
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage' #speeds up deployment in Heroku - not necessary, delete if causing errors (KT)
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
@@ -186,6 +191,18 @@ SOCIALACCOUNT_PROVIDERS = {
     }
 }
 
+SOCIALACCOUNT_PROVIDERS = {
+    'google': {
+        # For each OAuth based provider, either add a ``SocialApp``
+        # (``socialaccount`` app) containing the required client
+        # credentials, or list them here:
+        'APP': {
+            'client_id': '660547282894-nbii53s0tbp8om0le3er2n1l7g420e6n.apps.googleusercontent.com',
+            'secret': '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',
+            'key': ''
+        }
+    }
+} 
 try:
     if 'HEROKU' in os.environ:
         import django_heroku 

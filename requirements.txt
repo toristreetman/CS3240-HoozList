@@ -1,13 +1,3 @@
-<<<<<<< HEAD
-Django
-django-heroku
-django-environ
-dj_database_url
-django-allauth
-#psycopg2-binary
-gunicorn
-
-=======
 asgiref==3.5.2
 backports.zoneinfo==0.2.1;python_version<"3.9"
 beautifulsoup4==4.11.1
@@ -38,4 +28,3 @@ tzdata==2022.2
 urllib3==1.26.12
 waitress==2.1.2
 whitenoise==6.2.0
->>>>>>> Sprint3-GoogleLoginUI

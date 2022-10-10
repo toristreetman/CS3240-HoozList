@@ -191,7 +191,7 @@ SOCIALACCOUNT_PROVIDERS = {
     }
 }
 
-""" SOCIALACCOUNT_PROVIDERS = {
+SOCIALACCOUNT_PROVIDERS = {
     'google': {
         # For each OAuth based provider, either add a ``SocialApp``
         # (``socialaccount`` app) containing the required client
@@ -202,7 +202,7 @@ SOCIALACCOUNT_PROVIDERS = {
             'key': ''
         }
     }
-} """
+} 
 try:
     if 'HEROKU' in os.environ:
         import django_heroku 

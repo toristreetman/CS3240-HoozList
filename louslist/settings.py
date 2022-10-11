@@ -191,18 +191,18 @@ SOCIALACCOUNT_PROVIDERS = {
     }
 }
 
-SOCIALACCOUNT_PROVIDERS = {
-    'google': {
-        # For each OAuth based provider, either add a ``SocialApp``
-        # (``socialaccount`` app) containing the required client
-        # credentials, or list them here:
-        'APP': {
-            'client_id': '660547282894-nbii53s0tbp8om0le3er2n1l7g420e6n.apps.googleusercontent.com',
-            'secret': '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',
-            'key': ''
-        }
-    }
-} 
+# SOCIALACCOUNT_PROVIDERS = {
+#     'google': {
+#         # For each OAuth based provider, either add a ``SocialApp``
+#         # (``socialaccount`` app) containing the required client
+#         # credentials, or list them here:
+#         'APP': {
+#             'client_id': '660547282894-nbii53s0tbp8om0le3er2n1l7g420e6n.apps.googleusercontent.com',
+#             'secret': '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',
+#             'key': ''
+#         }
+#     }
+# } 
 try:
     if 'HEROKU' in os.environ:
         import django_heroku 

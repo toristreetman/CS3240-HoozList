@@ -4,7 +4,6 @@ from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import DetailView
 from app.models import Department, Course
 import requests
-import pandas as pd
 
 # Create your views here.
 #@csrf_exempt

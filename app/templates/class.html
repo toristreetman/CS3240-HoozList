@@ -10,6 +10,7 @@
 {% block content %}
 
 {% if user.is_authenticated %}
+    <p>Hello</p>
     {% for c in courses %}
         <p align="center">{{ c.subject }}{{ c.course_num }} -- {{ c.section }}: {{ c.course_name }}</p>
     {% endfor %}
@@ -28,5 +29,5 @@
             </div>      
         </div>
     </body>   
-
+{% endif %}
 {% endblock %}

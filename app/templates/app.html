@@ -40,7 +40,7 @@
         <p align = "center" ><a href="{% url 'account_logout' %}">Sign Out</a></p>
 
         {% for d in department %}
-            <p align = "center" ><a href="">{{ d.subject }}</a></p>
+            <p align = "center" ><a href="">{{ d.slug }}</a></p>
             <br>
         {% endfor %}
     </div> 

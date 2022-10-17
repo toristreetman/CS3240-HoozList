@@ -71,7 +71,7 @@ def login(request):
                     course.save()
                 
         # Re-grab the departments to show
-        d = Department.objects.all().order_by('subject')
+        d = Department.objects.all().order_by('slug')
         all_departments = {
             "department": d
         }

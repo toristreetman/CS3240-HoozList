@@ -39,10 +39,7 @@
         <p align = "center" >You are now signed in as {{ user.username }}.</p>
         <p align = "center" ><a href="{% url 'account_logout' %}">Sign Out</a></p>
 
-        {% for d in department %}
-            <p align = "center" ><a href="">{{ d.slug }}</a></p>
-            <br>
-        {% endfor %}
+        
     </div> 
 
     {% else %}

@@ -32,19 +32,34 @@
       <p>{% blocktrans with site.name as site_name %}Sign in with a Google account:{% endblocktrans %}</p>
       
       <div class="socialaccount_ballot">
-      
-        <ul class="socialaccount_providers">
 
-          {% include 'socialaccount/snippets/provider_list.html' with process='login' %}
-            
-          <img src="{%static 'app/images/google-logo.png'%}" style="width: 10%;"/>
-        </a>
-            
-        
+        <ul class="socialaccount_providers list-unstyled">
+          {% for provider in socialaccount_providers %}
+          {% if provider.id == "openid" %}
+          {% for brand in provider.get_brands %}
+          <li>
+            <a title="{{brand.name}}" class="socialaccount_provider {{provider.id}} {{brand.id}}"
+              href="{% provider_login_url provider.id openid=brand.openid_url process=process %}">
+              <img src="{%static 'app/images/google-logo.png'%}" style="width:10%">
+            </a>
+          </li>
+          {% endfor %}
+          {% endif %}
+          <li>
+            <a title="{{provider.name}}" class="socialaccount_provider {{provider.id}}"
+              href="{% provider_login_url provider.id process=process scope=scope auth_params=auth_params %}">
+              <img src="{%static 'app/images/google-logo.png'%}" style="width:10%">
+            </a>
+          </li>
+          {% endfor %}
+
+
+          
+
         </ul>
-      
-        
-      
+
+
+
       </div>
       
       {% include "socialaccount/snippets/login_extra.html" %}

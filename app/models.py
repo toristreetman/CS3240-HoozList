@@ -17,7 +17,7 @@ class Course(models.Model):
 
     """
     #Key to link a course to a department
-    department = models.ForeignKey(Department,on_delete=models.CASCADE, null=True)
+    department_ptr = models.ForeignKey(Department,on_delete=models.CASCADE, null=True)
 
     # Instructor Logistics
     instructor_name = models.CharField(max_length=120, null=True)

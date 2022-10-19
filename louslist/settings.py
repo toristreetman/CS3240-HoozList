@@ -41,7 +41,9 @@ ALLOWED_HOSTS = ['127.0.0.1',
     'localhost',
     'uva-cs3240-f22-a14.herokuapp.com', # Main
     'project-a-14-test.herokuapp.com', # Kousuke's
-    'torics3240.herokuapp.com'] # Tori's
+    'torics3240.herokuapp.com', # Tori's
+    'uva-cs3240-testing.herokuapp.com' # Testing
+    ]
 
 # Application definition
 

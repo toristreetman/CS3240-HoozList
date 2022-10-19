@@ -39,8 +39,9 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['127.0.0.1', 
     'localhost',
-    'uva-cs3240-f22-a14.herokuapp.com',
-    'project-a-14-test.herokuapp.com'] #Kousuke's Heroku app for testing
+    'uva-cs3240-f22-a14.herokuapp.com', # Main
+    'project-a-14-test.herokuapp.com', # Kousuke's
+    'torics3240.herokuapp.com'] # Tori's
 
 # Application definition
 

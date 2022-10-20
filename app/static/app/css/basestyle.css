@@ -35,7 +35,7 @@ img.triangleB {
 .auth_welcome {
   font-weight: 100;
   font-size: 1.5em;
-  background: -webkit-linear-gradient( 45deg, #07dd97, #beffe7);
+  background: -webkit-linear-gradient( 45deg, #0719dd, #beffe7);
   background-size: 100%;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -119,7 +119,7 @@ a:hover {
   color: #616161;
 }    
 .alert-success {
-  background-color: rgb(190 255 231 / 33%);
-  color: #07dd97;
+  background-color: #b9d6f5;
+  color: #0719dd;
   font-size: .9em;
 }   

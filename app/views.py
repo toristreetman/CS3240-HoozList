@@ -12,9 +12,7 @@ def index(request):
     return HttpResponse("Welcome to the better Lou's List!")
 
 #@csrf_exempt
-def login(request):
-
-      
+def login(request):  
     return render(request, 'app.html')
 
 

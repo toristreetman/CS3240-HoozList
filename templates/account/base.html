@@ -25,18 +25,7 @@
     </div>
     {% endif %}
 
-    <div>
-      <strong>Menu:</strong>
-      <ul>
-        {% if user.is_authenticated %}
-        <li><a href="{% url 'account_email' %}">Change E-mail</a></li>
-        <li><a href="{% url 'account_logout' %}">Sign Out</a></li>
-        {% else %}
-        <li><a href="{% url 'account_login' %}">Sign In</a></li>
-        <li><a href="{% url 'account_signup' %}">Sign Up</a></li>
-        {% endif %}
-      </ul>
-    </div>
+    
     {% block content %}
     {% endblock %}
     {% endblock %}
@@ -54,7 +43,16 @@
       <div class="col-md-6 welcome_auth">
           <div class="auth_welcome">
               <!-- Find more bootstrap 4 components & templates on <span><a href="https://mdbootstrap.com/">from MDBootstrap</a></span> -->
-
+              <strong>Menu:</strong>
+              <ul>
+                {% if user.is_authenticated %}
+                <li><a href="{% url 'account_email' %}">Change E-mail</a></li>
+                <li><a href="{% url 'account_logout' %}">Sign Out</a></li>
+                {% else %}
+                <li><a href="{% url 'account_login' %}">Sign In</a></li>
+                <li><a href="{% url 'account_signup' %}">Sign Up</a></li>
+                {% endif %}
+              </ul>
           </div>
       </div>         
       <div class="col-md-6 login-form">

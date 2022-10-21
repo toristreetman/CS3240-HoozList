@@ -59,6 +59,9 @@ a.auth_branding_in img {
   padding: 4em 1em;
 }
 .login-form h1 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   font-size: 1.2em;
   max-width: 600px;
   margin: 0 auto;

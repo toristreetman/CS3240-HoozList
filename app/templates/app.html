@@ -1,71 +1,22 @@
-{% load socialaccount %}
-
-{% load static %}
-
+{% extends 'navbar_footer.html' %}
 <!-- CSS only -->
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
-<link rel="stylesheet" href="{%static 'app/css/style.css'%}?version=1"">
-<!-- JavaScript Bundle with Popper -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
-<img src="{%static 'app/images/UVA-Logo.png'%}" class="img-fluid" style="width:10%">
 
-<!-- <style>
-    h1 {
-      color: rgb(0, 0, 0);
-      font-family: MV Boli;
-      font-size: 300%;
-      font-stretch: ultra-expanded
-    }
-    p {
-      color: red;
-      font-family: courier;
-      font-size: 160%;
-    }
-    a {
-      color: rgb(0, 0, 0);
-      font-family: MV Boli;
-      font-size: 160%;
-    }
-    </style> -->
 
-<html>
-
-<!-- Header -->
-<nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top">
-    <img src="{%static 'app/images/UVA-Logo.png'%}" class="img-fluid" style="width:10%">
-    <div class="container-fluid">
-      <button
-        class="navbar-toggler"
-        type="button"
-        data-mdb-toggle="collapse"
-        data-mdb-target="#navbarExample01"
-        aria-controls="navbarExample01"
-        aria-expanded="false"
-        aria-label="Toggle navigation"
-      >
-        <i class="fas fa-bars"></i>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarExample01">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <li class="nav-item active">
-            <a class="nav-link" aria-current="page" href="{% url 'login' %}">Home</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'department_view' %}">Department List</a>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </nav>
-    
+{% block content %}
+ 
     {% if user.is_authenticated %}
     
-    <div class="container-fluid courselist">
+    <div class="row home align-items-center" style= "height: 500px">
         <h1 align ="center">Lou's List v2</h1>
 
         <p align = "center" >You are now signed in as {{ user.username }}.</p>
         <p align = "center" ><a href="{% url 'account_logout' %}">Sign Out</a></p>
-        <p align = "center" ><a href="{% url 'department_view' %}">View Course Catalog</a></p>
+        <div class="d-grid gap-2 col-6 mx-auto">
+          <a class="btn btn-lg btn-dark" href="{% url 'department_view' %}" role="button">
+            View Course Catalog
+          </a>
+        </div>
+        
         
     </div> 
 
@@ -73,14 +24,14 @@
     <body>
         
 
-         <div class="container-fluid border text-center courselist">
+         <div class="container-fluid border text-center home">
             <div class="row align-items-center" style="height: 250px">
                 <div class="col"><h1>Lou's List v2</h1> </div>
             </div>
             
             <div class="row justify-content-center">
                 <div class="col">
-                    <a class="btn btn-lg btn-outline-primary" href="{% url 'account_login' %}" role="button">Log In</a>
+                    <a class="btn btn-lg btn-dark" href="{% url 'account_login' %}" role="button">Log In</a>
                 </div>
             </div>
             
@@ -90,4 +41,4 @@
     {% endif %}
 
 
-</html>
+    {% endblock %}

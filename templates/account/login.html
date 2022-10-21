@@ -1,14 +1,8 @@
-{% load i18n %}
+{% extends 'navbar_footer.html' %}
 {% load account socialaccount %}
 {% load static %}
-<!-- CSS only -->
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
-  integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
-<!-- JavaScript Bundle with Popper -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
-  integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
-<img src="{%static 'app/images/UVA-Logo.png'%}" class="img-fluid" style="width:10%">
 
+{% load i18n %}
 
 {% block content %}
 <html>
@@ -76,7 +70,7 @@
       <div class="login-or"><p align = "center">or</p></div>
     </div>
 
-    <div class="col">
+    <div class="col courselist">
 
       <form class="login" method="POST" action="{% url 'account_login' %}">
         {% csrf_token %}
@@ -91,8 +85,46 @@
         
         
         <button class="btn btn-lg btn-primary primaryAction" role="button">Sign In</button>
+        <a role="button"
+              href="http://127.0.0.1:8000/accounts/google/login/?process=">
+              <img src="{%static 'app/images/google-logo.png'%}" style="width:10%">
+            </a>
+        {% get_providers as socialaccount_providers %}
+
+      {% if socialaccount_providers %}
+      
+      
+
         
-        
+          {% for provider in socialaccount_providers %}
+          {% if provider.id == "openid" %}
+          {% for brand in provider.get_brands %}
+          <p>
+            <a title="{{brand.name}}" class="socialaccount_provider {{provider.id}} {{brand.id}}"
+              href="{% provider_login_url provider.id openid=brand.openid_url process=process %}">
+              <img src="{%static 'app/images/google-logo.png'%}" style="width:10%">
+            </a>
+          </p>
+          {% endfor %}
+          {% endif %}
+          <p>
+            <a title="{{provider.name}}" class="socialaccount_provider {{provider.id}}"
+              href="{% provider_login_url provider.id process=process scope=scope auth_params=auth_params %}">
+              <img src="{%static 'app/images/google-logo.png'%}" style="width:10%">
+            </a>
+          </p>
+          {% endfor %}
+
+
+      
+      
+      {% include "socialaccount/snippets/login_extra.html" %}
+      
+      {% else %}
+      <p>{% blocktrans %}If you have not created an account yet, then please
+      <a href="{{ signup_url }}">sign up</a> first.{% endblocktrans %}</p>
+      {% endif %}
+
       </form>
 
     </div>

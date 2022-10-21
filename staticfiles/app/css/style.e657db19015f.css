@@ -38,21 +38,6 @@
     opacity: 0.9;
 }
 
-.home {
-    border: 0.1rem solid black; 
-    background-color: white;
-    border-radius: 0.5rem;
-    padding: 0.1rem;
-    max-width: 50rem;
-    text-align: center;
-    align-items: center;
-    margin: auto;
-    margin-top: 100px;
-    margin-bottom: 100px;
-    padding: 1rem;  
-    opacity: 0.9;
-}
-
 .transparent {
     opacity: 0.9;
 }
@@ -67,10 +52,12 @@
 }
 
 body {
-    background: url("rotunda.jpg") no-repeat center center fixed;
+    background: url("rotunda.306fc460ff16.jpg") no-repeat center center fixed;
     background-size: cover;
     height: 100%;
 }
 
-
+footer {
+    position: fixed;
+}
 

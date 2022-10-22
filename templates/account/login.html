@@ -7,72 +7,19 @@
 {% block content %}
 <html>
 
+<style>
 
+
+</style>
 
 <div class="container">
-
-  <div class="row justify-content-center" style="height:200px">
-    <div class="col-12">
-      <h1 align = "center">Sign In</h1>
-    </div>
-  </div>
-  
  
   <div class="row justify-content-center align-items-center">
-    <div class="col text-center">
-      {% get_providers as socialaccount_providers %}
+    
 
-      {% if socialaccount_providers %}
-      <p>{% blocktrans with site.name as site_name %}Sign in with a Google account:{% endblocktrans %}</p>
-      
-      <div class="socialaccount_ballot">
-
-        <ul class="socialaccount_providers list-unstyled">
-          {% for provider in socialaccount_providers %}
-          {% if provider.id == "openid" %}
-          {% for brand in provider.get_brands %}
-          <li>
-            <a title="{{brand.name}}" class="socialaccount_provider {{provider.id}} {{brand.id}}"
-              href="{% provider_login_url provider.id openid=brand.openid_url process=process %}">
-              <img src="{%static 'app/images/google-logo.png'%}" style="width:10%">
-            </a>
-          </li>
-          {% endfor %}
-          {% endif %}
-          <li>
-            <a title="{{provider.name}}" class="socialaccount_provider {{provider.id}}"
-              href="{% provider_login_url provider.id process=process scope=scope auth_params=auth_params %}">
-              <img src="{%static 'app/images/google-logo.png'%}" style="width:10%">
-            </a>
-          </li>
-          {% endfor %}
-
-
-          
-
-        </ul>
-
-
-
-      </div>
-      
-      {% include "socialaccount/snippets/login_extra.html" %}
-      
-      {% else %}
-      <p>{% blocktrans %}If you have not created an account yet, then please
-      <a href="{{ signup_url }}">sign up</a> first.{% endblocktrans %}</p>
-      {% endif %}
-
-
-    </div>
-
-    <div class="col text-align-center">
-      <div class="login-or"><p align = "center">or</p></div>
-    </div>
-
-    <div class="col courselist">
-
-      <form class="login" method="POST" action="{% url 'account_login' %}">
+    <div class="col home">
+      <h1 align = "center" style="height:100px ">Sign In</h1>
+      <form class="login" style = "font-weight: bold"method="POST" action="{% url 'account_login' %}">
         {% csrf_token %}
         {{ form.as_p }}
         {% if redirect_field_value %}
@@ -84,11 +31,12 @@
         </ul>
         
         
-        <button class="btn btn-lg btn-primary primaryAction" role="button">Sign In</button>
-        <a role="button"
+        <button class="btn btn-lg btn-dark primaryAction" role="button">Sign In</button>
+              
+        <!--<a role="button"
               href="http://127.0.0.1:8000/accounts/google/login/?process=">
               <img src="{%static 'app/images/google-logo.png'%}" style="width:10%">
-            </a>
+            </a>-->
         {% get_providers as socialaccount_providers %}
 
       {% if socialaccount_providers %}

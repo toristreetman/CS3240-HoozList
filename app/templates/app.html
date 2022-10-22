@@ -3,41 +3,48 @@
 
 
 {% block content %}
- 
+
+  </style>
     {% if user.is_authenticated %}
     
+    <div class="container">
     <div class="row home align-items-center" style= "height: 500px">
         <h1 align ="center">Lou's List v2</h1>
 
-        <p align = "center" >You are now signed in as {{ user.username }}.</p>
-        <p align = "center" ><a href="{% url 'account_logout' %}">Sign Out</a></p>
+        <p align = "center" >You are now signed in as {{ user.username }}</p>
+        
         <div class="d-grid gap-2 col-6 mx-auto">
           <a class="btn btn-lg btn-dark" href="{% url 'department_view' %}" role="button">
             View Course Catalog
           </a>
         </div>
-        
+        <p align = "center" ><a href="{% url 'account_logout' %}">Sign Out</a></p>
         
     </div> 
-
+  </div>
     {% else %}
-    <body>
+   
         
 
-         <div class="container-fluid border text-center home">
-            <div class="row align-items-center" style="height: 250px">
-                <div class="col"><h1>Lou's List v2</h1> </div>
-            </div>
-            
-            <div class="row justify-content-center">
-                <div class="col">
-                    <a class="btn btn-lg btn-dark" href="{% url 'account_login' %}" role="button">Log In</a>
+         <div class="container-fluid text-end" >
+
+            <div class="row align-items-center" style="height: 900px">
+                
+
+                <div class="col-10 align-self-center" style = "height: 150px">
+                  <h1 class="home1">
+                    HoozList
+                  </h1>
+                  <a class="btn btn-lg btn-dark" href="{% url 'account_login' %}" >Log In To Get Started</a>
                 </div>
-            </div>
+                <div class="col-2"></div>
+              </div>
+            
+            
             
     
         </div>
-    </body>   
+      
     {% endif %}
 
 

@@ -37,10 +37,16 @@
     padding: 1rem;  
     opacity: 0.9;
 }
+.home1{
 
+    color: white;
+    font-weight: bolder;
+    font-size: 100px;
+
+}
 .home {
     border: 0.1rem solid black; 
-    background-color: white;
+    background-color: rgba(226, 221, 221, 0.918);
     border-radius: 0.5rem;
     padding: 0.1rem;
     max-width: 50rem;
@@ -50,9 +56,19 @@
     margin-top: 100px;
     margin-bottom: 100px;
     padding: 1rem;  
-    opacity: 0.9;
+    opacity: 1;
 }
+.btn{
 
+    border: 1px solid rgb(255, 255, 255);
+}
+.btn-lg{
+
+    --bs-btn-border-radius: 10px;
+    
+    --bs-btn-hover-color: var(--bs-white);
+    --bs-btn-border-color: var(--bd-white);
+}
 .transparent {
     opacity: 0.9;
 }
@@ -67,7 +83,7 @@
 }
 
 body {
-    background: url("rotunda.jpg") no-repeat center center fixed;
+    background: linear-gradient(0deg, rgba(233, 233, 233, 0.144), rgba(255, 255, 255, 0.158)),url("rotunda.jpg") no-repeat center center fixed;
     background-size: cover;
     height: 100%;
 }

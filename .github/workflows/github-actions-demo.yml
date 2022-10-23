@@ -31,5 +31,15 @@ jobs:
         run: |
           ls ${{ github.workspace }}
       - run: echo "🍏 This job's status is ${{ job.status }}."
-      - name: Run Tests
-        run: python manage.py test
+      - name: Run test_view_url
+        run: python manage.py test app.tests.YourTestClass.test_view_url
+      - name: Run test departmentStr
+        run: python manage.py test app.tests.YourTestClass.departmentStr
+      - name: Run test courseStr
+        run: python manage.py test app.tests.YourTestClass.courseStr
+      - name: Run test test_view_log
+        run: python manage.py test app.tests.YourTestClass.test_view_log
+      - name: Run test test_view_hooz
+        run: python manage.py test app.tests.YourTestClass.test_view_hooz
+      - name: Run test test_view_lou
+        run: python manage.py test app.tests.YourTestClass.test_view_lou

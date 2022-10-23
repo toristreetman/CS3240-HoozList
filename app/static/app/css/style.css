@@ -46,16 +46,16 @@
 }
 .home {
     border: 0.1rem solid black; 
-    background-color: rgba(226, 221, 221, 0.918);
+    background-color: rgba(226, 221, 221, 0.942);
     border-radius: 0.5rem;
     padding: 0.1rem;
     max-width: 50rem;
     text-align: center;
     align-items: center;
     margin: auto;
-    margin-top: 100px;
-    margin-bottom: 100px;
-    padding: 1rem;  
+    margin-top: 150px;
+    margin-bottom: 50px;
+   
     opacity: 1;
 }
 .btn{

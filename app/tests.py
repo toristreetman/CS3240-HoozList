@@ -20,8 +20,18 @@ class YourTestClass(TestCase):
                 self.assertEqual(str(dept),"PHIL")
 
         def courseStr(self):
-                co = Course.objects.create(subject="CS",course_num="1110",section = "001",course_name="Introduction to Programming")
+                co = Course.objects.create(subject="CS",course_num="1110",section = "001",
+                course_name="Introduction to Programming")
                 self.assertEqual(str(co),"CS1110 -- 001: Introduction to Programming")
+        def test_view_log(self):
+                response = self.client.get('')
+                self.assertContains(response, "Log In")
+        def test_view_hooz(self):
+                response = self.client.get('')
+                self.assertContains(response, "HoozList")
+        def test_view_log(self):
+                response = self.client.get('')
+                self.assertContains(response, "Lou's List v2")
 
 
 

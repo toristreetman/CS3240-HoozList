@@ -9,9 +9,9 @@ class YourTestClass(TestCase):
         def test_view_url(self):
                 response = self.client.get('')
                 self.assertEqual(response.status_code, 200)
-        # def test_view_url_exists_at_second_location(self):
-        #         response = self.client.get('dept-list/')
-        #         self.assertEqual(response.status_code, 200)
+        def test_view_url_exists_at_second_location(self):
+                response1 = self.client.get('/dept-list/')
+                self.assertEqual(response1.status_code, 200)
 
 #check if department model's to string method is working correctly
 

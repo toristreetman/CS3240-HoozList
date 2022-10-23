@@ -1,0 +1,92 @@
+.course {
+    border: 0.1rem solid black; 
+    background-color: white;
+    border-radius: 0.5rem;
+    padding: 0.1rem;
+    max-width: 50rem;
+    text-align: center;
+    align-items: center;
+    margin: auto;
+    margin-top: 1rem;
+    padding: 1rem; 
+    
+    opacity: 0.9;
+}
+.navTitle{
+    font-weight: bold;
+    
+}
+.navPic{
+
+    border: 0.1rem solid rgb(255, 253, 253); 
+    background-color: white;
+    border-radius: 0.5rem;
+
+}
+.courselist {
+    border: 0.1rem solid black; 
+    background-color: white;
+    border-radius: 0.5rem;
+    padding: 0.1rem;
+    max-width: 50rem;
+    text-align: center;
+    align-items: center;
+    margin: auto;
+    margin-top: 10rem;
+    margin-bottom: 10rem;
+    padding: 1rem;  
+    opacity: 0.9;
+}
+.home1{
+
+    color: white;
+    font-weight: bolder;
+    font-size: 100px;
+
+}
+.home {
+    border: 0.1rem solid black; 
+    background-color: rgba(226, 221, 221, 0.918);
+    border-radius: 0.5rem;
+    padding: 0.1rem;
+    max-width: 50rem;
+    text-align: center;
+    align-items: center;
+    margin: auto;
+    margin-top: 100px;
+    margin-bottom: 100px;
+    padding: 1rem;  
+    opacity: 1;
+}
+.btn{
+
+    border: 1px solid rgb(255, 255, 255);
+}
+.btn-lg{
+
+    --bs-btn-border-radius: 10px;
+    
+    --bs-btn-hover-color: var(--bs-white);
+    --bs-btn-border-color: var(--bd-white);
+}
+.transparent {
+    opacity: 0.9;
+}
+
+.middle {
+    left: 0;
+    margin-top: -100px;
+    position: absolute;
+    text-align: center;
+    top: 50%;
+    width: 100%;
+}
+
+body {
+    background: linear-gradient(0deg, rgba(233, 233, 233, 0.144), rgba(255, 255, 255, 0.158)),url("rotunda.306fc460ff16.jpg") no-repeat center center fixed;
+    background-size: cover;
+    height: 100%;
+}
+
+
+

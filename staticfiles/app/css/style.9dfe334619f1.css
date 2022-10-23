@@ -46,16 +46,16 @@
 }
 .home {
     border: 0.1rem solid black; 
-    background-color: rgba(226, 221, 221, 0.942);
+    background-color: rgba(226, 221, 221, 0.918);
     border-radius: 0.5rem;
     padding: 0.1rem;
     max-width: 50rem;
     text-align: center;
     align-items: center;
     margin: auto;
-    margin-top: 150px;
-    margin-bottom: 50px;
-   
+    margin-top: 100px;
+    margin-bottom: 100px;
+    padding: 1rem;  
     opacity: 1;
 }
 .btn{
@@ -83,7 +83,7 @@
 }
 
 body {
-    background: linear-gradient(0deg, rgba(233, 233, 233, 0.144), rgba(255, 255, 255, 0.158)),url("rotunda.jpg") no-repeat center center fixed;
+    background: linear-gradient(0deg, rgba(233, 233, 233, 0.144), rgba(255, 255, 255, 0.158)),url("rotunda.306fc460ff16.jpg") no-repeat center center fixed;
     background-size: cover;
     height: 100%;
 }

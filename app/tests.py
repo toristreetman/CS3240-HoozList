@@ -29,7 +29,7 @@ class YourTestClass(TestCase):
         def test_view_hooz(self):
                 response = self.client.get('')
                 self.assertContains(response, "HoozList")
-        def test_view_log(self):
+        def test_view_lou(self):
                 response = self.client.get('')
                 self.assertContains(response, "Lou's List v2")
 

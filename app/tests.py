@@ -1,18 +1,12 @@
 from django.test import TestCase
 from django.test import Client
+
 import unittest
 from app.models import Department, Course, CourseDetail
-
+from django.contrib.sites.models import Site
 from django.db import models
+from django.contrib import auth
 
-
-# from django.test import LiveServerTestCase
-# from selenium import webdriver
-# from selenium.webdriver.common.keys import Keys
-
-# Create your tests here.
-#check if the pages could be found
-# driver = webdriver.Chrome('/Users/yuxismac/chromedriver')
 
 class YourTestClass(TestCase):
         def test_view_url(self):
@@ -43,6 +37,12 @@ class YourTestClass(TestCase):
         def test_view_notloggedin(self):
                 response = self.client.get('/dept-list/')
                 self.assertContains(response, "Please sign in to access the course catalog!")
+
+       
+    
+
+
+
         
 
 

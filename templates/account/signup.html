@@ -22,33 +22,13 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
 <img src="{%static 'app/images/UVA-Logo.png'%}" class="img-fluid" style="width:10%">
 
-
-
-
-
-
-<p>{% blocktrans %}Already have an account? Then please <a href="{{ login_url }}">sign in</a>.{% endblocktrans %}</p>
-
-<form class="signup" id="signup_form" method="post" action="{% url 'account_signup' %}">
-  {% csrf_token %}
-  {{ form.as_p }}
-  {% if redirect_field_value %}
-  <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
-  {% endif %}
-  <button type="submit">{% trans "Sign Up" %} &raquo;</button>
-</form>
-
-
-
-
 <body class="auth_class">
 
     <div class="container login-container">
       <div class="row">
         <div class="col-md-6 welcome_auth">
             <div class="auth_welcome">
-                <p>{% trans "Forgotten your password? Enter your Email address, and we'll send you an Email allowing you to reset it." %}</p>
-            </div>
+                <p>{% blocktrans %}Already have an account? Then please <a href="{{ login_url }}">sign in</a>.{% endblocktrans %}</p>            </div>
         </div>         
         <div class="col-md-6 welcome_auth">
             <div class="login_form_in">
@@ -58,22 +38,18 @@
                   </a>
                 </div>
                 <div style = "position:relative; top:-30px;">
-                    <h1>{% trans "Password Reset" %}</h1>
+                    <h1>{% trans "Sign Up" %}</h1>
                     {% if user.is_authenticated %}
                     {% include "account/snippets/already_logged_in.html" %}
                     {% endif %}
                 </div>
-              <form method="POST" action="{% url 'account_reset_password' %}" class="password_reset">
-                                  
-                <div class="form-group">
+                <form class="signup" id="signup_form" method="post" action="{% url 'account_signup' %}">
                     {% csrf_token %}
                     {{ form.as_p }}
-                </div>
-                <div class="form-group">
-                    <div class="welcome_auth">
-                        <input type="submit" value="{% trans 'Reset My Password' %}" />
-                    </div>
-                </div>
+                    {% if redirect_field_value %}
+                    <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+                    {% endif %}
+                    <button type="submit">{% trans "Sign Up" %} &raquo;</button>
 
                 
                 <div class="welcome_auth">
@@ -87,8 +63,7 @@
                       <a class="" href="{% url 'account_signup' %}"> Sign Up</a>
                       {% endif %}
                     </div>
-                  </div>
-
+                </div>
               </form>
             </div>
         </div>       

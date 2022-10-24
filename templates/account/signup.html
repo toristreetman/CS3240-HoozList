@@ -13,7 +13,7 @@
 {% load static %}
 {% load account %}
 
-
+{% block content %}
 <!-- CSS only -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
 
@@ -24,7 +24,7 @@
 
 
 
-{% block content %}
+
 
 
 <p>{% blocktrans %}Already have an account? Then please <a href="{{ login_url }}">sign in</a>.{% endblocktrans %}</p>
@@ -38,7 +38,7 @@
   <button type="submit">{% trans "Sign Up" %} &raquo;</button>
 </form>
 
-{% endblock %}
+
 
 
 <body class="auth_class">
@@ -99,3 +99,4 @@
         <p>{% blocktrans %}Please contact us if you have any trouble resetting your password.{% endblocktrans %}</p>
     </div>
 </body>
+{% endblock %}

@@ -1,0 +1,74 @@
+{% extends 'navbar_footer.html' %}
+
+{% load i18n %}
+{% load static %}
+{% load account %}
+
+{% block content %}
+
+
+<!-- CSS only -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+
+<link rel="stylesheet" href="{%static 'app/css/basestyle.css'%}?version=1'">
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+<img src="{%static 'app/images/UVA-Logo.png'%}" class="img-fluid" style="width:10%">
+
+<body class="auth_class">
+
+    <div class="container login-container">
+      <div class="row">
+        <div class="col-md-6 welcome_auth">
+            <div class="auth_welcome">
+                <p>{% blocktrans %}Already have an account? Then please <a href="{{ login_url }}">sign in</a>.{% endblocktrans %}</p>            
+            </div>
+        </div>         
+        <div class="col-md-6 welcome_auth">
+            <div class="login_form_in">
+                <div class="auth_branding">
+                    <a class="auth_branding_in" href="https://mdbootstrap.com/">
+                      <i class="fab fa-mdb fa-2x auth_welcome"></i>
+                  </a>
+                </div>
+                <div style = "position:relative; top:-30px;">
+                    <h1>{% trans "Sign Up" %}</h1>
+                    {% if user.is_authenticated %}
+                    {% include "account/snippets/already_logged_in.html" %}
+                    {% endif %}
+                </div>
+                <form class="signup" id="signup_form" method="post" action="{% url 'account_signup' %}">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    {% if redirect_field_value %}
+                    <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+                    {% endif %}
+                    <button type="submit">{% trans "Sign Up" %} &raquo;</button>
+
+                
+                <div class="welcome_auth">
+                    <div style = "position:relative; top:50px;">
+                      {% if user.is_authenticated %}
+
+                      <a class="" href="{% url 'account_email' %}">Change E-mail</a>
+                      <a class="" href="{% url 'account_logout' %}">Sign Out</a>
+                      {% else %}
+                      <a class="" href="{% url 'account_login' %}">Sign In &nbsp;  &nbsp;</a>
+                      <a class="" href="{% url 'account_signup' %}"> Sign Up</a>
+                      {% endif %}
+                    </div>
+                </div>
+              </form>
+            </div>
+        </div>       
+      </div>
+    </div>
+    <div class="welcome_auth">
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+    </div>
+</body>
+{% endblock %}

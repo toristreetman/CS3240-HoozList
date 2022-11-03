@@ -29,5 +29,8 @@ class CoursesView(generic.DetailView):
     template_name = "course_view.html"
     model = Department
         
+def ProfileView(request):
+    return render(request, 'profile.html')
+
 
         

@@ -52,27 +52,6 @@ class Course(models.Model):
         # EX: CS1110 -- 001: Introduction to Programming
         return self.subject + self.course_num + " -- " + self.section + ": " + self.course_name
     
-    class User(models.Model):
-        """
-        Model that represents the user and its features.
-        """
-        
-        # User that comes from auth_users in Google Login
-        user = models.ForeignKey(settings.AUTH_USER_MODEL)
-        
-        
-        # Foreign Key(s) to class database? | Both foreign keys so we can avoid
-        # Foreign Key(s) to other users?    | creating too many redundant tables.
-        
-        
-        
-        
-        
-        
-    
-class CourseDetail(DetailView):
-    model = Course
-    
     
     
     

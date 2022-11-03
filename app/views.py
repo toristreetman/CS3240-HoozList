@@ -5,6 +5,7 @@ from django.views.generic import DetailView
 from app.models import Department, Course
 import requests
 from django.views import generic
+from django.contrib.auth.models import User
 
 # Create your views here.
 #@csrf_exempt
@@ -28,4 +29,8 @@ class CoursesView(generic.DetailView):
     template_name = "course_view.html"
     model = Department
         
+def ProfileView(request):
+    return render(request, 'profile.html')
+
+
         

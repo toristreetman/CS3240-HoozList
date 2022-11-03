@@ -1,4 +1,5 @@
 from django.db import models
+from django.conf import settings
 from django.views.generic.detail import DetailView
 
 
@@ -50,9 +51,6 @@ class Course(models.Model):
     def __str__(self):
         # EX: CS1110 -- 001: Introduction to Programming
         return self.subject + self.course_num + " -- " + self.section + ": " + self.course_name
-    
-class CourseDetail(DetailView):
-    model = Course
     
     
     

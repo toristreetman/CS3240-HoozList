@@ -1,7 +1,9 @@
 from django.db import models
 from django.conf import settings
 from django.views.generic.detail import DetailView
-
+from django.contrib.auth.models import User
+from django.dispatch import receiver
+from django.db.models.signals import post_save
 
 class Department(models.Model):
     """
@@ -52,7 +54,18 @@ class Course(models.Model):
         # EX: CS1110 -- 001: Introduction to Programming
         return self.subject + self.course_num + " -- " + self.section + ": " + self.course_name
     
-    
+class UserProfile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, null=True, blank =True)
+    scheduled_courses = models.ManyToManyField(Course)
+    saved_courses = models.ManyToManyField(Course)
+
+    def __str__(self):
+        return self.user.username
+
+@receiver(post_save, sender = User)
+def create_user_profile(sender, instance, created, **kwargs):
+    if created:
+        UserProfile.objects.create(user=instance)
     
     
     

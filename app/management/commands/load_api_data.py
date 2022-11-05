@@ -30,6 +30,7 @@ class Command(BaseCommand):
                             course = Course(
                             
                             department_ptr = current_department,
+                            dept_slug = current_department.slug,
                             instructor_name = c['instructor']['name'],
                             instructor_email = c['instructor']['email'],
                             course_num = c['course_number'],

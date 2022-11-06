@@ -39,7 +39,7 @@
                         <li>{{course.dept_slug}} {{course.course_cat}} {{course.course_name}}</li>
                         <form action="{% url 'delete_save' %}" method="post">
                           {% csrf_token %}
-                          <button class="dropdown-item" type  = "submit" class="primary" name="course_choice" id="course_choice" value="{{course.id}}" >Delete Course</button>
+                          <button class="btn btn-secondary btn-dark" type  = "submit"  name="course_choice" id="course_choice" value="{{course.id}}" >Delete Course</button>
                         </form> 
                         {% endfor %}
                     </ul>
@@ -52,7 +52,7 @@
                         <li>{{course.dept_slug}} {{course.course_cat}} {{course.course_name}} {{course.start_time}} -- {{course.end_time}} 
                           <form action="{% url 'delete_schedule' %}" method="post">
                             {% csrf_token %}
-                            <button class="dropdown-item" type  = "submit" class="primary" name="course_choice" id="course_choice" value="{{course.id}}" >Delete Course</button>
+                            <button class="btn btn-secondary btn-dark" type  = "submit"  name="course_choice" id="course_choice" value="{{course.id}}" >Delete Course</button>
                           </form>
                         </form>
                         </li>

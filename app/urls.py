@@ -10,7 +10,10 @@ urlpatterns = [
     path('dept-list/<slug:slug>/', views.CoursesView.as_view(), name='courses'),
     path('profile/', views.ProfileView, name='profile_view'),
     path('dept-list/<slug:slug>/save_course', views.SaveCourse, name='save_course'),
-    path('dept-list/<slug:slug>/save_schedule', views.SaveCourseInSchedule, name = 'save_schedule')
+    path('dept-list/<slug:slug>/save_schedule', views.SaveCourseInSchedule, name = 'save_schedule'),
+    path('profile/delete_save', views.DeleteCourse, name = 'delete_save'),
+    path('profile/delete_schedule', views.DeleteScheduledCourse, name='delete_schedule')
+    
 ]
     
     

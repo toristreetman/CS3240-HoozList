@@ -100,6 +100,37 @@ def SaveCourseInSchedule(request, slug):
     
     user_info.userprofile.scheduled_courses.add(selected_course)
     return render(request, 'saved_courses.html', {'user' : user_info, 'course': selected_course})
+
+def DeleteCourse(request):
+    selected_course = get_object_or_404(Course, pk=request.POST['course_choice'])
+    
+    user_courses = request.user.userprofile.saved_courses.all()
+    user_info = request.user
+    
+    # Ensure that the selected_course is within the user_courses
+    if selected_course in user_courses:
+        user_info.userprofile.saved_courses.remove(selected_course)
+        return render(request, 'delete_save.html', {'user' : user_info, 'course': selected_course})
+    
+    # Somehow selected course that was not in user list, so return an error page
+    else:
+        return render(request, 'error.html')
+    
+def DeleteScheduledCourse(request):
+    selected_course = get_object_or_404(Course, pk=request.POST['course_choice'])
+    
+    user_courses = request.user.userprofile.scheduled_courses.all()
+    user_info = request.user
+    
+    # Ensure that the selected_course is within the user_courses
+    if selected_course in user_courses:
+        user_info.userprofile.scheduled_courses.remove(selected_course)
+        return render(request, 'delete_schedule.html', {'user' : user_info, 'course': selected_course})
+    
+    # Somehow selected course that was not in user list, so return an error page
+    else:
+        return render(request, 'error.html')    
+        
         
         
          

@@ -61,6 +61,7 @@ class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, null=True, blank =True)
     scheduled_courses = models.ManyToManyField(Course, related_name='user_schedule')
     saved_courses = models.ManyToManyField(Course)
+    friends = models.ManyToManyField(User, related_name='friends')
 
     def __str__(self):
         return self.user.username

@@ -32,5 +32,12 @@ class CoursesView(generic.DetailView):
 def ProfileView(request):
     return render(request, 'profile.html')
 
+def SearchView(request):
+    template_name = "search_view.html"
+    if request.method == "POST":
+        searched = request.POST['searched']
+        courses = Course.objects.all
+        return render(request, 'search_view.html',{'searched': searched, 'courses': courses})
+    else:
+        return render(request, 'search_view.html')
 
-        

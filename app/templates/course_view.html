@@ -5,13 +5,13 @@
 <div class="text-center courselist">
 <h1>{{ department.slug }}</h1>
 <ul class = "list-unstyled">
-{% for course in department.course_set.all %}
+
 <div class="course">
     <li><b>{{course.subject}}{{ course.course_cat }}-{{course.section}}:</b> {{course.course_name}}</li>
     <li>{{course.component}} - ({{course.units}} Units) | {{course.enrollment_total}} / {{course.capacity}}</li>
     <li>{{course.instructor_name}} --- {{course.meeting_days}} {{course.start_time}}-{{course.end_time}}  </li>
 </div>
-{% endfor %}
+
 </ul>
 
 </div>

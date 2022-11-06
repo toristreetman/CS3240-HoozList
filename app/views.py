@@ -35,10 +35,13 @@ class CoursesView(generic.DetailView):
 def ProfileView(request):
     saved_courses_list = request.user.userprofile.saved_courses.all()
     scheduled_courses_list = request.user.userprofile.scheduled_courses.all()
+    friends_list = request.user.userprofile.friends.all()
+    
 
     return render(request, 'profile.html', {
                                             'saved_courses_list': saved_courses_list, 
-                                            'scheduled_courses_list': scheduled_courses_list})
+                                            'scheduled_courses_list': scheduled_courses_list,
+                                            'friends_list': friends_list})
 
 # read about forms and POST methods
 # I found this article to be useful

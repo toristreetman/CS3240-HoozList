@@ -26,8 +26,6 @@
         <div class="row header">
             <div class="col">
                 Results for: '{{searched}}'
-                
-                List of courses: {{courses}}
             </div>
         </div>
     </div>
@@ -46,19 +44,30 @@
             <th scope="col">Meeting Date/Time</th>
             <th scope="col">Location</th>
             <th scope="col">Actions</th>
+            
           </tr>
         </thead>
         
-        {% for c in courses%}
-            <tbody>
-                <tr>
-                    <th >{section}</th>
-                    <td>{subject} {course_cat}</td>
-                    <td>{course_name}</td>
-                    <td>{instructor_name}</td>
-                    <td>{meeting_days}: {start_time}-{end_time}</td>
-                    <td>{location}</td>
-                    </tr>
+        {% for course in courses%}
+        <tr>
+          <th >{{course.section}}</th>
+          <td>{{course.subject}} {{ course.course_cat }}</td>
+          <td>{{course.course_name}}</td>
+          <td>{{course.instructor_name}}</td>
+          <td>{{course.meeting_days}}: {{course.start_time}}-{{course.end_time}}</td>
+          <td>{{course.location}}</td>
+          <td>
+              <div class="dropdown">
+              <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                More
+              </button>
+              <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                <li><a class="dropdown-item" href="#">Save</a></li>
+                <li><a class="dropdown-item" href="#">Add to Schedule</a></li>
+              </ul>
+            </div>
+          </td>
+        </tr>
             </tbody>
         {% endfor %}
 

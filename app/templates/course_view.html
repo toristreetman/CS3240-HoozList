@@ -5,13 +5,13 @@
 <div class="text-center courselist">
 <h1>{{ department.slug }}</h1>
 <ul class = "list-unstyled">
-{% for course in department.course_set.all %}
+
 <div class="course">
     <li><b>{{course.subject}}{{ course.course_cat }}-{{course.section}}:</b> {{course.course_name}}</li>
     <li>{{course.component}} - ({{course.units}} Units) | {{course.enrollment_total}} / {{course.capacity}}</li>
     <li>{{course.instructor_name}} --- {{course.meeting_days}} {{course.start_time}}-{{course.end_time}}  </li>
 </div>
-{% endfor %}
+
 </ul>
 
 </div>
@@ -59,7 +59,7 @@ margin-bottom: 10rem;">
     </thead>
     <tbody>
         {% for course in department.course_set.all %}
-      <tr>
+        <tr>
         <th >{{course.section}}</th>
         <td>{{course.subject}} {{ course.course_cat }}</td>
         <td>{{course.course_name}}</td>
@@ -72,11 +72,27 @@ margin-bottom: 10rem;">
               More
             </button>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-              <li><a class="dropdown-item" href="#">Save</a></li>
-              <li><a class="dropdown-item" href="#">Add to Schedule</a></li>
+                <li>
+                    <!-- need to use this form block to generate the post data -->
+                    <!-- action sends the data to urls.py and method indicates that it's supposed to send data, not receive -->
+                    <!--urls.py then calls the appropriate view to execute the logic-->
+                    <form action="{% url 'save_course' department.slug %}" method="post">
+                    {% csrf_token %}
+                    <!--this sends back whatever is in name and value-->
+                    <button class="dropdown-item" type  = "submit" name="course_choice" id="course_choice" value="{{course.id}}" >Save Course</button>
+                    </form>
+                </li>
+              <li>
+                <form action="{% url 'save_schedule' department.slug %}" method="post">
+                  {% csrf_token %}
+                  <button class="dropdown-item" type = "submit" name = "course_choice" id="course_choice" value="{{course.id}}">Add to Schedule</button>
+                </form>
+                
+              </li>
             </ul>
           </div>
         </td>
+        
       </tr>
       {% endfor %}
     </tbody>

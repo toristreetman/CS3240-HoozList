@@ -15,17 +15,16 @@ class YourTestClass(TestCase):
         def test_view_url_exists_at_second_location(self):
                 response1 = self.client.get('/dept-list/')
                 self.assertEqual(response1.status_code, 200)
-
+                
 # check if the two models that are essential to the first feature is working correctly
-
         def departmentStr(self):
                 dept = Department.objects.create(slug="PHIL")
                 self.assertEqual(str(dept),"PHIL")
-
         def courseStr(self):
                 co = Course.objects.create(subject="CS",course_num="1110",section = "001",
                 course_name="Introduction to Programming")
                 self.assertEqual(str(co),"CS1110 -- 001: Introduction to Programming")
+
 #Check if the content in the log-in page is working correctly
         def test_view_log(self):
                 response = self.client.get('')

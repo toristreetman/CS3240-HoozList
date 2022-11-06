@@ -15,13 +15,9 @@ class YourTestClass(TestCase):
         def test_view_url_exists_at_second_location(self):
                 response1 = self.client.get('/dept-list/')
                 self.assertEqual(response1.status_code, 200)
-        # New testing to confirm viewing works on multiple pages
-                # REQUIRES DATA TO BE LOADED FIRST
-                response2 = self.client.get('/dept-list/CS/')
-                self.assertEqual(response2.status_code, 200)
         def test_view_profile(self):
-                response3 = self.client.get('/profile/')
-                self.assertEqual(response3.status_code, 200)
+                response2 = self.client.get('/profile/')
+                self.assertEqual(response2.status_code, 200)
                 
 # check if the two models that are essential to the first feature is working correctly
         def departmentStr(self):

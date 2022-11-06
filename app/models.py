@@ -53,7 +53,7 @@ class Course(models.Model):
     
     def __str__(self):
         # EX: CS1110 -- 001: Introduction to Programming
-        return self.subject + self.course_num + " -- " + self.section + ": " + self.course_name
+        return self.subject + self.course_cat + " -- " + self.section + ": " + self.course_name
     
 #this is a separate model that will 'extend' the django User model using a one to one key
 # it has two additional fields to keep track of saved and scheduled courses. friend list will prob end up here too  

@@ -41,7 +41,16 @@
                         {% endfor %}
                     </ul>
                     </div>
-                    <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">Here is your schedule</div>
+                    <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+                      Here is your schedule
+                      <ul>
+                        {% for course in scheduled_courses_list %}
+
+                        <li>{{course.dept_slug}} {{course.course_cat}} {{course.course_name}} {{course.start_time}} -- {{course.end_time}}</li>
+
+                        {% endfor %}
+                      </ul>
+                    </div>
                     <div class="tab-pane fade" id="friends" role="tabpanel" aria-labelledby="friends-tab">Here are your friends</div>
                 </div>
                   

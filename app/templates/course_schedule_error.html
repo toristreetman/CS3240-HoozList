@@ -1,0 +1,22 @@
+{% extends 'navbar_footer.html' %}
+
+{% block content %}
+
+<div class="container courselist">
+
+    <div class="row">
+
+        <div class="row">
+
+            <h1>Error adding {{selected_course.dept_slug}} {{selected_course.course_cat}} to {{user2.first_name}} schedule.
+                {{conflicted_course.dept_slug}} {{conflicted_course.course_cat}} conflicted in times in current schedule.
+            </h1>
+
+        </div>
+
+    </div>
+
+
+</div>
+
+{% endblock %}

@@ -82,7 +82,13 @@ margin-bottom: 10rem;">
                     <button class="dropdown-item" type  = "submit" name="course_choice" id="course_choice" value="{{course.id}}" >Save Course</button>
                     </form>
                 </li>
-              <li><a class="dropdown-item" href="#">Add to Schedule</a></li>
+              <li>
+                <form action="{% url 'save_schedule' department.slug %}" method="post">
+                  {% csrf_token %}
+                  <button class="dropdown-item" type = "submit" name = "course_choice" id="course_choice" value="{{course.id}}">Add to Schedule</button>
+                </form>
+                
+              </li>
             </ul>
           </div>
         </td>

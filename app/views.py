@@ -60,18 +60,18 @@ def SaveCourseInSchedule(request, slug):
     # access course based on request ID
     selected_course = get_object_or_404(Course, pk=request.POST['course_choice']) 
     course_to_save = vars(selected_course)
-    print(course_to_save)
-    # grab and parse times from the course
-    start_time = int(course_to_save['start_time'][:2] + course_to_save['start_time'][3:5])
-    end_time = int(course_to_save['end_time'][:2] + course_to_save['end_time'][3:5])
-    print(start_time, end_time)
-    
-    # get user information from request
+
+    # access user courses and information
     user_info = request.user
     user_courses = request.user.userprofile.scheduled_courses.all()
-    print("=============================")
-    print(user_courses)
-    print("=============================") 
+
+    # If course is asynchronous, then just add it regardless
+    if len(course_to_save['start_time']) < 10:
+        user_info.userprofile.scheduled_courses.add(selected_course)
+        return render(request, 'saved_courses.html', {'user' : user_info, 'course': selected_course})
+        
+    start_time = int(course_to_save['start_time'][:2] + course_to_save['start_time'][3:5])
+    end_time = int(course_to_save['end_time'][:2] + course_to_save['end_time'][3:5])
     
     # see if there are any course conflicts
     # if any conflict: return an error page
@@ -82,7 +82,7 @@ def SaveCourseInSchedule(request, slug):
         
         # Check if there is no time, then just add the course regardless
         if len(dict_saved_course['start_time']) < 10:
-            break
+            continue
         
         comp_start_time = int(dict_saved_course['start_time'][:2] + dict_saved_course['start_time'][3:5]) 
         comp_end_time = int(dict_saved_course['end_time'][:2] + dict_saved_course['end_time'][3:5]) 

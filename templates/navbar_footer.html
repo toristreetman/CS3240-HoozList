@@ -27,6 +27,17 @@
           <li class="nav-item" style = "width: 125px" >
             <a class="nav-link" href="{% url 'department_view' %}" >Course Catalog</a>
           </li>
+
+          <!-- Load icon library -->
+          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+          <!-- The search form -->
+          <form class="d-flex" method="POST" action="{% url 'search_view'%}">
+            {%csrf_token%}
+            <input class="form-control me-2" style= "width:170px" type="search" placeholder="Search Courses..." aria-label="Search" name = "searched">
+            <button class="btn btn-light btn-sm"  type="submit">submit</button>
+          </form>
+
+          
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" class="bi bi-person-circle" viewBox="0 0 16 16">
@@ -46,16 +57,14 @@
               <li><a class="dropdown-item" href="{% url 'account_login' %}">Sign in / Sign Up</a></li>
               <li><a class="dropdown-item" href="{% url 'account_logout' %}">Sign out</a></li>
               
+              
             </ul>
             
           </li>
           
         </ul>
-       <!--
-        <form class="d-flex" style = "width: 400px" role="search">
-          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-          <button class="btn btn-light" type="submit">Search</button>
-        </form> -->
+
+        
      </div>
       
     </div>

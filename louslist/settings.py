@@ -20,7 +20,7 @@ environ.Env.read_env()
 if 'DATABASE_URL' in os.environ:
     SITE_ID = 3
 else:
-    SITE_ID = 5
+    SITE_ID = 6
  
 
 
@@ -61,6 +61,7 @@ INSTALLED_APPS = [
     'allauth.account',                        #
     'allauth.socialaccount',                  #
     'allauth.socialaccount.providers.google', # for Google OAuth 2.0
+    'django_filters'
     # ...
 ]
 

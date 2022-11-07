@@ -67,7 +67,7 @@ def SearchView(request):
 # I found this article to be useful
 # https://developer.mozilla.org/en-US/docs/Learn/Forms/Sending_and_retrieving_form_data
 
-def SaveFriend(request, slug):
+def SaveFriend(request):
     friend_to_save = get_object_or_404(User, pk=request.POST['friend_choice'])
 
     user_saving = request.user

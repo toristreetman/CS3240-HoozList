@@ -72,7 +72,13 @@
                     
                           {% for friend in friends %}
   
-                          <li>{{friend.email}}</li>
+                          <li>
+                            {{friend.email}}
+                            <form action="{% url 'save_friend' %}" method="post">
+                              {% csrf_token %}
+                              <button class="btn btn-secondary btn-dark" type  = "submit"  name="friend_choice" id="friend_choice" value="{{friend}}" >Save Friend</button>
+                            </form>
+                           </li>
                     
                           {% endfor %}
                         </ul>

@@ -10,7 +10,7 @@ from django.contrib.auth.models import User
 from django.db.models import Q
 from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
-
+from django.contrib.auth.decorators import login_required
 # Create your views here.
 #@csrf_exempt
 def index(request):
@@ -32,7 +32,8 @@ def DepartmentView(request):
 class CoursesView(generic.DetailView):
     template_name = "course_view.html"
     model = Department
-        
+
+@login_required       
 def ProfileView(request):
     saved_courses_list = request.user.userprofile.saved_courses.all()
     scheduled_courses_list = request.user.userprofile.scheduled_courses.all()

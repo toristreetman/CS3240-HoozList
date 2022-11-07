@@ -63,7 +63,7 @@
                     <div class="tab-pane fade" id="friends" role="tabpanel" aria-labelledby="friends-tab">
                       Here are your friends
 
-                      <form class="d-flex" method="POST" action="{% url 'search_view'%}">
+                      <form class="d-flex" method="POST" action="{% url 'search_friend'%}">
                         {%csrf_token%}
                         <input class="form-control me-2" style= "width:170px" type="search" placeholder="Find Friends..." aria-label="Search" name = "searched">
                         <button class="btn btn-light btn-sm"  type="submit">search</button>

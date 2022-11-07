@@ -6,10 +6,12 @@ from app.models import Department, Course
 import requests
 from django.views import generic
 from django.forms.models import model_to_dict
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, AnonymousUser
 from django.db.models import Q
 from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
+from django.conf import settings
+from django.shortcuts import redirect
 
 # Create your views here.
 #@csrf_exempt
@@ -34,6 +36,10 @@ class CoursesView(generic.DetailView):
     model = Department
         
 def ProfileView(request):
+    if not request.user.is_authenticated:
+        return redirect('%s?next=%s' % (settings.LOGIN_URL, request.path))
+        #return render(request, "profile_not_logged_in.html")
+
     saved_courses_list = request.user.userprofile.saved_courses.all()
     scheduled_courses_list = request.user.userprofile.scheduled_courses.all()
     friends_list = request.user.userprofile.friends.all()

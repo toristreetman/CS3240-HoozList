@@ -57,6 +57,18 @@ def SearchView(request):
 # read about forms and POST methods
 # I found this article to be useful
 # https://developer.mozilla.org/en-US/docs/Learn/Forms/Sending_and_retrieving_form_data
+
+def SaveFriend(request, slug):
+    friend_to_save = get_object_or_404(User, pk=request.POST['friend_choice'])
+
+    user_saving = request.user
+
+    #adding the course to the new UserProfile model 
+    user_saving.userprofile.friends.add(friend_to_save)
+
+    return render(request,'saved_friend.html',{'user' : user_saving, 'friend' :friend_to_save})
+
+
 def SaveCourse(request, slug):
 
     #accessing POST data sent by user (name and value variables)
@@ -114,6 +126,21 @@ def SaveCourseInSchedule(request, slug):
     
     user_info.userprofile.scheduled_courses.add(selected_course)
     return render(request, 'saved_courses.html', {'user' : user_info, 'course': selected_course})
+
+def DeleteFriend(request):
+    selected_friend = get_object_or_404(User, pk=request.POST['friend_choice'])
+    
+    user_friends = request.user.userprofile.friends.all()
+    user_info = request.user
+    
+    # Ensure that the selected_course is within the user_courses
+    if selected_friend in user_friends:
+        user_info.userprofile.friends.remove(selected_friend)
+        return render(request, 'delete_friend.html', {'user' : user_info, 'friend': selected_friend})
+    
+    # Somehow selected course that was not in user list, so return an error page
+    else:
+        return render(request, 'error.html')
 
 def DeleteCourse(request):
     selected_course = get_object_or_404(Course, pk=request.POST['course_choice'])

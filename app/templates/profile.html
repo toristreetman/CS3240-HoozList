@@ -60,7 +60,22 @@
                         {% endfor %}
                       </ul>
                     </div>
-                    <div class="tab-pane fade" id="friends" role="tabpanel" aria-labelledby="friends-tab">Here are your friends</div>
+                    <div class="tab-pane fade" id="friends" role="tabpanel" aria-labelledby="friends-tab">
+                      Here are your friends
+                      <ul>
+                        {% for friend in friends_list %}
+
+                        <li>{{friend.username}} 
+                          <form action="{% url 'delete_friend' %}" method="post">
+                            {% csrf_token %}
+                            <button class="btn btn-secondary btn-dark" type  = "submit"  name="course_choice" id="course_choice" value="{{course.id}}" >Delete Friend</button>
+                          </form>
+                        </form>
+                        </li>
+
+                        {% endfor %}
+                      </ul>
+                    </div>
                 </div>
                   
             </div>

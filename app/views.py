@@ -12,7 +12,7 @@ from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
 from django.conf import settings
 from django.shortcuts import redirect
-
+from django.contrib.auth.decorators import login_required
 # Create your views here.
 #@csrf_exempt
 def index(request):
@@ -34,10 +34,11 @@ def DepartmentView(request):
 class CoursesView(generic.DetailView):
     template_name = "course_view.html"
     model = Department
-        
+
+@login_required     
 def ProfileView(request):
-    if not request.user.is_authenticated:
-        return redirect('%s?next=%s' % (settings.LOGIN_URL, request.path))
+   # if not request.user.is_authenticated:
+      #  return redirect('%s?next=%s' % (settings.LOGIN_URL, request.path))
         #return render(request, "profile_not_logged_in.html")
 
     saved_courses_list = request.user.userprofile.saved_courses.all()

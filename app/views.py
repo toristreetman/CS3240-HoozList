@@ -43,6 +43,15 @@ def ProfileView(request):
                                             'saved_courses_list': saved_courses_list, 
                                             'scheduled_courses_list': scheduled_courses_list,
                                             'friends_list': friends_list})
+def SearchFriendView(request):
+    if request.method == "POST":
+        searched = request.POST['searched']
+        friends = User.objects.filter(Q(first_name__icontains = searched)|Q(last_name__icontains = searched)
+        |Q(email__istartswith = searched))
+        return render(request, 'profile.html',{'searched': searched, 'courses': courses})
+    else:
+        return render(request, 'profile.html')
+
 def SearchView(request):
     template_name = "search_view.html"
     if request.method == "POST":

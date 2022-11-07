@@ -35,13 +35,65 @@
                   <ul>
                   {% for course in  saved_courses_list%}
                   
-                  <li>{{course.dept_slug}} {{course.course_cat}} {{course.course_name}}</li>
+                  <li>{{course.dept_slug}} {{course.course_cat}} {{course.course_name}}
                   <form action="{% url 'delete_save' %}" method="post">
                     {% csrf_token %}
                     <button class="btn btn-secondary btn-dark" type  = "submit"  name="course_choice" id="course_choice" value="{{course.id}}" >Delete Course</button>
                   </form> 
+                </li>
                   {% endfor %}
               </ul>
+              <table class="table table-striped table-hover table-secondary table-bordered">
+                <thead class="table-dark ">
+                  <tr class="">
+                    <th scope="col">Section</th>
+                    <th scope="col">Course Code</th>
+                    <th scope="col">Course Name</th>
+                    <th scope="col">Instructor</th>
+                    <th scope="col">Meeting Date/Time</th>
+                    <th scope="col">Location</th>
+                    <th scope="col">Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                    {% for course in saved_courses_list %}
+                    <tr>
+                    <th >{{course.section}}</th>
+                    <td>{{course.subject}} {{ course.course_cat }}</td>
+                    <td>{{course.course_name}}</td>
+                    <td>{{course.instructor_name}}</td>
+                    <td>{{course.meeting_days}}: {{course.start_time}}-{{course.end_time}}</td>
+                    <td>{{course.location}}</td>
+                    <td>
+                        <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                          More
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                            <li>
+                                <!-- need to use this form block to generate the post data -->
+                                <!-- action sends the data to urls.py and method indicates that it's supposed to send data, not receive -->
+                                <!--urls.py then calls the appropriate view to execute the logic-->
+                                <form action="{% url 'delete_schedule' %}" method="post">
+                                  {% csrf_token %}
+                                  <button class="btn" type  = "submit"  name="course_choice" id="course_choice" value="{{course.id}}" >Delete Course</button>
+                                </form>
+                            </li>
+                          <li>
+                            <form action="{% url 'save_schedule2' course.dept_slug%}" method="post">
+                              {% csrf_token %}
+                              <button class="dropdown-item" type = "submit" name = "course_choice" id="course_choice" value="{{course.id}}">Add to Schedule</button>
+                            </form>
+                            
+                          </li>
+                        </ul>
+                      </div>
+                    </td>
+                    
+                  </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
               </div>
               <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
                 Here is your schedule
@@ -53,7 +105,7 @@
                       {% csrf_token %}
                       <button class="btn btn-secondary btn-dark" type  = "submit"  name="course_choice" id="course_choice" value="{{course.id}}" >Delete Course</button>
                     </form>
-                  </form>
+                  
                   </li>
 
                   {% endfor %}

@@ -12,6 +12,7 @@ urlpatterns = [
     path('search_view/', views.SearchView, name='search_view'),
     path('dept-list/<slug:slug>/save_course', views.SaveCourse, name='save_course'),
     path('dept-list/<slug:slug>/save_schedule', views.SaveCourseInSchedule, name = 'save_schedule'),
+    path('profile/<slug:slug>/save_schedule2', views.SaveCourseInSchedule, name = 'save_schedule2'),
     path('profile/delete_save', views.DeleteCourse, name = 'delete_save'),
     path('profile/delete_schedule', views.DeleteScheduledCourse, name='delete_schedule')
 ]

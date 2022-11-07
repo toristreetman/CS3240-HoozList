@@ -48,7 +48,7 @@ def SearchFriendView(request):
         searched = request.POST['searched']
         friends = User.objects.filter(Q(first_name__icontains = searched)|Q(last_name__icontains = searched)
         |Q(email__istartswith = searched))
-        return render(request, 'profile.html',{'searched': searched, 'courses': courses})
+        return render(request, 'profile.html',{'searched': searched, 'friends': friends})
     else:
         return render(request, 'profile.html')
 
@@ -75,7 +75,7 @@ def SaveFriend(request, slug):
     #adding the course to the new UserProfile model 
     user_saving.userprofile.friends.add(friend_to_save)
 
-    return render(request,'saved_friend.html',{'user' : user_saving, 'friend' :friend_to_save})
+    return render(request,'profile.html',{'user' : user_saving, 'friend' :friend_to_save})
 
 
 def SaveCourse(request, slug):

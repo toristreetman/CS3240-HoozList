@@ -69,7 +69,15 @@
                         <button class="btn btn-light btn-sm"  type="submit">search</button>
                       </form>
 
+                    </style>
+                          {% for friend in friends %}
+  
+                          <li>{{friend.email}}</li>
+                    
+                          {% endfor %}
+                        </ul>
                       <ul>
+
                         {% for friend in friends_list %}
 
                         <li>{{friend.username}} 

@@ -32,17 +32,7 @@
               <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">{{ user.first_name }}</div>
               <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
                   Here are your saved courses
-                  <ul>
-                  {% for course in  saved_courses_list%}
                   
-                  <li>{{course.dept_slug}} {{course.course_cat}} {{course.course_name}}
-                  <form action="{% url 'delete_save' %}" method="post">
-                    {% csrf_token %}
-                    <button class="btn btn-secondary btn-dark" type  = "submit"  name="course_choice" id="course_choice" value="{{course.id}}" >Delete Course</button>
-                  </form> 
-                </li>
-                  {% endfor %}
-              </ul>
               <table class="table table-striped table-hover table-secondary table-bordered">
                 <thead class="table-dark ">
                   <tr class="">
@@ -74,7 +64,7 @@
                                 <!-- need to use this form block to generate the post data -->
                                 <!-- action sends the data to urls.py and method indicates that it's supposed to send data, not receive -->
                                 <!--urls.py then calls the appropriate view to execute the logic-->
-                                <form action="{% url 'delete_schedule' %}" method="post">
+                                <form action="{% url 'delete_save' %}" method="post">
                                   {% csrf_token %}
                                   <button class="btn" type  = "submit"  name="course_choice" id="course_choice" value="{{course.id}}" >Delete Course</button>
                                 </form>

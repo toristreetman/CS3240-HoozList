@@ -37,9 +37,41 @@ class YourTestClass(TestCase):
                 response = self.client.get('/dept-list/')
                 self.assertContains(response, "Please sign in to access the course catalog!")
 
+#Check if the search page functions
+        def test_search_url(self):
+                response = self.client.get('/search_view/')
+                self.assertEqual(response.status_code, 200)
+#Check if the page contains the right words
+        def test_view_notloggedin(self):
+                response = self.client.get('/search_view/')
+                self.assertContains(response, "Please type what you are looking for into the search bar!")
+
+
+
+#Check if the profile page has User information
+
+#Check if the profile page has Saved Course
+
+#Check if the profile page has Your Schedule
+
+#Check if the profile page has Friends
+
+#Enter CS in the search bar, and CS1110 should be among the list
+
+#Enter Sherriff in the search bar, and CS3240 should be among the list
+
+#Many to many relationship model testing 
        
     
 
+
+
+        
+
+
+
+
+       
 
 
         

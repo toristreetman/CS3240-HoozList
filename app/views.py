@@ -10,7 +10,7 @@ from django.contrib.auth.models import User
 from django.db.models import Q
 from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
-
+from django.contrib.auth.decorators import login_required
 # Create your views here.
 #@csrf_exempt
 def index(request):
@@ -32,7 +32,8 @@ def DepartmentView(request):
 class CoursesView(generic.DetailView):
     template_name = "course_view.html"
     model = Department
-        
+
+@login_required       
 def ProfileView(request):
     saved_courses_list = request.user.userprofile.saved_courses.all()
     scheduled_courses_list = request.user.userprofile.scheduled_courses.all()
@@ -101,12 +102,12 @@ def SaveCourseInSchedule(request, slug):
     user_courses = request.user.userprofile.scheduled_courses.all()
 
     # If course is asynchronous, then just add it regardless
-    if len(course_to_save['start_time']) < 10:
+    if len(course_to_save['start_time']) < 4:
         user_info.userprofile.scheduled_courses.add(selected_course)
         return render(request, 'saved_courses.html', {'user' : user_info, 'course': selected_course})
         
-    start_time = int(course_to_save['start_time'][:2] + course_to_save['start_time'][3:5])
-    end_time = int(course_to_save['end_time'][:2] + course_to_save['end_time'][3:5])
+    start_time = int(course_to_save['start_time'][:2] + course_to_save['start_time'][3:])
+    end_time = int(course_to_save['end_time'][:2] + course_to_save['end_time'][3:])
     
     # see if there are any course conflicts
     # if any conflict: return an error page
@@ -116,11 +117,11 @@ def SaveCourseInSchedule(request, slug):
         
         
         # Check if there is no time, then just add the course regardless
-        if len(dict_saved_course['start_time']) < 10:
+        if len(dict_saved_course['start_time']) < 4:
             continue
         
-        comp_start_time = int(dict_saved_course['start_time'][:2] + dict_saved_course['start_time'][3:5]) 
-        comp_end_time = int(dict_saved_course['end_time'][:2] + dict_saved_course['end_time'][3:5]) 
+        comp_start_time = int(dict_saved_course['start_time'][:2] + dict_saved_course['start_time'][3:]) 
+        comp_end_time = int(dict_saved_course['end_time'][:2] + dict_saved_course['end_time'][3:]) 
         if start_time >= comp_start_time and start_time <= comp_end_time:
             return render(request, 'course_schedule_error.html', 
                           {'user' : user_info, 

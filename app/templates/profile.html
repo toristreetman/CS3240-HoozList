@@ -76,7 +76,7 @@
                             {{friend.email}}
                             <form action="{% url 'save_friend' %}" method="post">
                               {% csrf_token %}
-                              <button class="btn btn-secondary btn-dark" type  = "submit"  name="friend_choice" id="friend_choice" value="{{friend}}" >Save Friend</button>
+                              <button class="btn btn-secondary btn-dark" type  = "submit"  name="friend_choice" id="friend_choice" value="{{friend.id}}" >Save Friend</button>
                             </form>
                            </li>
                     

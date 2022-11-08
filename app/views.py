@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import DetailView
 from app.models import Department, Course
@@ -13,6 +13,7 @@ from django.urls import reverse
 from django.conf import settings
 from django.shortcuts import redirect
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 # Create your views here.
 #@csrf_exempt
 def index(request):
@@ -75,7 +76,10 @@ def SaveCourse(request, slug):
     #adding the course to the new UserProfile model 
     user_saving.userprofile.saved_courses.add(course_to_save)
 
-    return render(request,'saved_courses.html',{'user' : user_saving, 'course' :course_to_save})
+    dictionary = {"success": True, "msg": "Course Saved Successfully" }
+    #return render(request,'saved_courses.html',{'user' : user_saving, 'course' :course_to_save})
+    messages.success(request, "Your course has been saved!")
+    return HttpResponseRedirect(reverse('courses', args=(slug,)))
 
 def SaveCourseInSchedule(request, slug):
     # access course based on request ID
@@ -131,7 +135,9 @@ def DeleteCourse(request):
     # Ensure that the selected_course is within the user_courses
     if selected_course in user_courses:
         user_info.userprofile.saved_courses.remove(selected_course)
-        return render(request, 'delete_save.html', {'user' : user_info, 'course': selected_course})
+        messages.success(request, "Your course has been deleted!")
+        return HttpResponseRedirect('/profile/')
+        #return render(request, 'delete_save.html', {'user' : user_info, 'course': selected_course})
     
     # Somehow selected course that was not in user list, so return an error page
     else:

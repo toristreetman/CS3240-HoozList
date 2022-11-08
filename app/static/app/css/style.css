@@ -1,4 +1,17 @@
-
+.back3 {
+    
+    background-color: rgba(30, 35, 40, 0);
+    
+    padding: 0.1rem;
+    max-width: 1685px;
+    text-align: center;
+    align-items: center;
+    
+    margin-top: 100px;
+    margin-bottom: 0px;
+    padding: 1rem;  
+    
+}
 .course {
     border: 0.1rem solid black; 
     background-color: white;

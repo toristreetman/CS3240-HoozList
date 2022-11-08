@@ -1,8 +1,42 @@
 {% extends 'navbar_footer.html' %}
 
 {% block content %}
-
+<style>
+  .back3 {
+    
+    background-color: rgba(30, 35, 40, 0);
+    
+    padding: 0.1rem;
+    max-width: 1685px;
+    text-align: center;
+    align-items: center;
+    
+    margin-top: 100px;
+    margin-bottom: 0px;
+    padding: 1rem;  
+    
+}
+</style>
 {% if user.is_authenticated%}
+<div class="container back3">
+  <div class="row"><div class="col">
+
+    {% if messages %}
+    <ul class="messages">
+      {% for message in messages %}
+     
+      <div {% if message.tags %}class="alert alert-success alert-dismissible fade show" {% endif %}role="alert" style="margin-top: 1rem;">
+        {{ message }}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      {% endfor %}
+    </ul>
+    {% endif %}
+
+  </div></div>
+</div>
 <div class="container-fluid courselist">
   <div class="row" style="height: 100px;">
 

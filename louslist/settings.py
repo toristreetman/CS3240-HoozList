@@ -20,7 +20,7 @@ environ.Env.read_env()
 if 'DATABASE_URL' in os.environ:
     SITE_ID = 4 
 else:
-    SITE_ID = 8
+    SITE_ID = 7
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -212,3 +212,13 @@ try:
         found = True
 except ImportError:
     found = False
+
+from django.contrib.messages import constants as messages
+
+MESSAGE_TAGS = {
+    messages.DEBUG: 'alert-info',
+    messages.INFO: 'alert-info',
+    messages.SUCCESS: 'alert-success',
+    messages.WARNING: 'alert-warning',
+    messages.ERROR: 'alert-danger',
+}

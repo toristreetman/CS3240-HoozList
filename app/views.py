@@ -76,7 +76,7 @@ def SaveFriend(request):
     #adding the course to the new UserProfile model 
     user_saving.userprofile.friends.add(friend_to_save)
 
-    return render(request,'profile.html',{'user' : user_saving, 'friend' :friend_to_save})
+    return render(request,'saved_friend.html',{'user' : user_saving, 'friend' :friend_to_save})
 
 
 def SaveCourse(request, slug):

@@ -89,7 +89,7 @@
                         <li>{{friend.username}} 
                           <form action="{% url 'delete_friend' %}" method="post">
                             {% csrf_token %}
-                            <button class="btn btn-secondary btn-dark" type  = "submit"  name="friend_choice" id="friend_choice" value="{{friend.username}}" >Delete Friend</button>
+                            <button class="btn btn-secondary btn-dark" type  = "submit"  name="friend_choice" id="friend_choice" value="{{friend.id}}" >Delete Friend</button>
                           </form>
                         </form>
                         </li>

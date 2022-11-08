@@ -36,6 +36,7 @@ class YourTestClass(TestCase):
         def test_view_notloggedin(self):
                 response = self.client.get('/dept-list/')
                 self.assertContains(response, "Please sign in to access the course catalog!")
+
 #Check if the search page functions
         def test_search_url(self):
                 response = self.client.get('/search_view/')
@@ -58,6 +59,8 @@ class YourTestClass(TestCase):
 #Enter CS in the search bar, and CS1110 should be among the list
 
 #Enter Sherriff in the search bar, and CS3240 should be among the list
+
+#Many to many relationship model testing 
        
     
 

@@ -51,8 +51,8 @@ class Command(BaseCommand):
                                                 
                             location = c['meetings'][0]['facility_description'],
                             meeting_days = c['meetings'][0]['days'],
-                            start_time = c['meetings'][0]['start_time'],
-                            end_time = c['meetings'][0]['end_time'],
+                            start_time = c['meetings'][0]['start_time'][0:2]+":"+c['meetings'][0]['start_time'][3:5],
+                            end_time = c['meetings'][0]['end_time'][0:2]+":"+c['meetings'][0]['end_time'][3:5],
                             )
                         else:
                             course = Course(

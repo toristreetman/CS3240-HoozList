@@ -124,24 +124,60 @@
                 <ul>
                   {% for course in scheduled_courses_list %}
 
-                  <li>{{course.dept_slug}} {{course.course_cat}} {{course.course_name}} {{course.start_time}} -- {{course.end_time}} 
-                    <form action="{% url 'delete_schedule' %}" method="post">
-                      {% csrf_token %}
-                      <button class="btn btn-secondary btn-dark" type  = "submit"  name="course_choice" id="course_choice" value="{{course.id}}" >Delete Course</button>
-                    </form>
-                  
-                  </li>
+                        <li>{{course.dept_slug}} {{course.course_cat}} {{course.course_name}} {{course.start_time}} -- {{course.end_time}} 
+                          <form action="{% url 'delete_schedule' %}" method="post">
+                            {% csrf_token %}
+                            <button class="btn btn-secondary btn-dark" type  = "submit"  name="course_choice" id="course_choice" value="{{course.id}}" >Delete Course</button>
+                          </form>
+                        </form>
+                        </li>
 
-                  {% endfor %}
-                </ul>
-              </div>
-              <div class="tab-pane fade" id="friends" role="tabpanel" aria-labelledby="friends-tab">Here are your friends</div>
-          </div>
-            
-      </div>
-  </div>
+                        {% endfor %}
+                      </ul>
+                    </div>
+                    <div class="tab-pane fade" id="friends" role="tabpanel" aria-labelledby="friends-tab">
+                      Here are your friends
+
+                      <form class="d-flex" method="POST" action="{% url 'search_friend'%}">
+                        {%csrf_token%}
+                        <input class="form-control me-2" style= "width:170px" type="search" placeholder="Find Friends..." aria-label="Search" name = "searched">
+                        <button class="btn btn-light btn-sm"  type="submit">search</button>
+                      </form>
+
+                    
+                          {% for friend in friends %}
   
-  
+                          <li>
+                            {{friend.email}}
+                            <form action="{% url 'save_friend' %}" method="post">
+                              {% csrf_token %}
+                              <button class="btn btn-secondary btn-dark" type  = "submit"  name="friend_choice" id="friend_choice" value="{{friend.id}}" >Save Friend</button>
+                            </form>
+                           </li>
+                    
+                          {% endfor %}
+                        </ul>
+                      <ul>
+
+                        {% for friend in friends_list %}
+
+                        <li>{{friend.username}} 
+                          <form action="{% url 'delete_friend' %}" method="post">
+                            {% csrf_token %}
+                            <button class="btn btn-secondary btn-dark" type  = "submit"  name="friend_choice" id="friend_choice" value="{{friend.id}}" >Delete Friend</button>
+                          </form>
+                        </form>
+                        </li>
+
+                        {% endfor %}
+                      </ul>
+                    </div>
+                </div>
+                  
+            </div>
+        </div>
+        
+        
 </div>
 
 

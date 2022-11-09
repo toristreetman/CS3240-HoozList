@@ -14,7 +14,10 @@ urlpatterns = [
     path('dept-list/<slug:slug>/save_schedule', views.SaveCourseInSchedule, name = 'save_schedule'),
     path('profile/<slug:slug>/save_schedule2', views.SaveCourseInSchedule, name = 'save_schedule2'),
     path('profile/delete_save', views.DeleteCourse, name = 'delete_save'),
-    path('profile/delete_schedule', views.DeleteScheduledCourse, name='delete_schedule')
+    path('profile/delete_schedule', views.DeleteScheduledCourse, name='delete_schedule'),
+    path('profile/save_friend', views.SaveFriend, name='save_friend'),
+    path('profile/delete_friend', views.DeleteFriend, name='delete_friend'),
+    path('profile/search_friend', views.SearchFriendView, name='search_friend')
 ]
     
     

@@ -16,27 +16,43 @@
     padding: 1rem;  
     
 }
+.close{
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  background-color: rgba(172, 164, 164, 0);
+  padding-top: 1px;
+  
+}
 </style>
 {% if user.is_authenticated%}
-<div class="container back3">
+<div class="container back3 position-sticky">
   <div class="row"><div class="col">
 
     {% if messages %}
     <ul class="messages">
       {% for message in messages %}
      
-      <div {% if message.tags %}class="alert alert-success alert-dismissible fade show" {% endif %}role="alert" style="margin-top: 1rem;">
+      <div {% if message.tags %}class="alert alert-success alert-dismissible fade show" {% endif %}role="alert" id = "succalert">
         {{ message }}
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <button  type="button" class="close" data-dismiss="alert" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
+        
       </div>
+      <script type="text/javascript">
+        setTimeout(function () {
+  
+            // Closing the alert
+            $('#succalert').alert('close');
+        }, 2000);
+    </script>
       {% endfor %}
     </ul>
     {% endif %}
 
   </div></div>
+
 </div>
+
 <div class="container-fluid courselist">
   <div class="row" style="height: 100px;">
 
@@ -63,7 +79,27 @@
                 </li>
             </ul>
             <div class="tab-content" id="myTabContent">
-              <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">{{ user.first_name }}</div>
+              <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                <div class="container" style="text-align: left;">
+                <div class="row">
+                  <div class="col">First and last name:</div>
+                  <div class="col">{{ user.first_name }} {{ user.last_name }}</div>
+                </div>
+                <div class="row">
+                  <div class="col">User email:</div>
+                  <div class="col">{{ user.email }}</div>
+                </div>
+                <div class="row">
+                  <div class="col">Major:</div>
+                  <div class="col"></div>
+                </div>
+                <div class="row">
+                  <div class="col">Year:</div>
+                  <div class="col"></div>
+                </div>
+              </div>
+              
+              </div>
               <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
                   Here are your saved courses
                   

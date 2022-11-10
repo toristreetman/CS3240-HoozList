@@ -47,18 +47,9 @@ def ProfileView(request):
     friends_list = request.user.userprofile.friends.all()
     
 
-    return render(request, 'profile.html', {
-                                            'saved_courses_list': saved_courses_list, 
+    return render(request, 'profile.html', {'saved_courses_list': saved_courses_list, 
                                             'scheduled_courses_list': scheduled_courses_list,
                                             'friends_list': friends_list})
-def SearchFriendView(request):
-    if request.method == "POST":
-        searched = request.POST['searched']
-        friends = User.objects.filter(Q(first_name__icontains = searched)|Q(last_name__icontains = searched)
-        |Q(email__istartswith = searched))
-        return render(request, 'profile.html',{'searched': searched, 'friends': friends})
-    else:
-        return render(request, 'profile.html')
 
 def SearchView(request):
     template_name = "search_view.html"
@@ -75,6 +66,16 @@ def SearchView(request):
 # I found this article to be useful
 # https://developer.mozilla.org/en-US/docs/Learn/Forms/Sending_and_retrieving_form_data
 
+###################### Friends ##############################
+def SearchFriendView(request):
+    if request.method == "POST":
+        searched = request.POST['searched']
+        friends = User.objects.filter(Q(first_name__icontains = searched)|Q(last_name__icontains = searched)
+        |Q(email__istartswith = searched))
+        return render(request, 'profile.html',{'searched': searched, 'friends': friends})
+    else:
+        return render(request, 'profile.html')
+
 def SaveFriend(request):
     friend_to_save = get_object_or_404(User, pk=request.POST['friend_choice'])
 
@@ -85,7 +86,23 @@ def SaveFriend(request):
 
     return render(request,'saved_friend.html',{'user' : user_saving, 'friend' :friend_to_save})
 
+def DeleteFriend(request):
+    selected_friend = get_object_or_404(User, pk=request.POST['friend_choice'])
+    
+    user_friends = request.user.userprofile.friends.all()
+    user_info = request.user
+    
+    # Ensure that the selected_course is within the user_courses
+    if selected_friend in user_friends:
+        user_info.userprofile.friends.remove(selected_friend)
+        return render(request, 'delete_friend.html', {'user' : user_info, 'friend': selected_friend})
+    
+    # Somehow selected course that was not in user list, so return an error page
+    else:
+        return render(request, 'error.html')
 
+
+######################  Save Courses ##############################
 def SaveCourse(request, slug):
 
     #accessing POST data sent by user (name and value variables)
@@ -102,6 +119,26 @@ def SaveCourse(request, slug):
     messages.success(request, "Your course has been saved!")
     return HttpResponseRedirect(reverse('courses', args=(slug,)))
 
+def DeleteCourse(request):
+    selected_course = get_object_or_404(Course, pk=request.POST['course_choice'])
+    
+    user_courses = request.user.userprofile.saved_courses.all()
+    user_info = request.user
+    
+    # Ensure that the selected_course is within the user_courses
+    if selected_course in user_courses:
+        user_info.userprofile.saved_courses.remove(selected_course)
+        messages.success(request, "Your course has been deleted!")
+        return HttpResponseRedirect('/profile/')
+        #return render(request, 'delete_save.html', {'user' : user_info, 'course': selected_course})
+    
+    # Somehow selected course that was not in user list, so return an error page
+    else:
+        return render(request, 'error.html')
+
+
+
+######################  Schedule Courses ##############################
 def SaveCourseInSchedule(request, slug):
     # access course based on request ID
     selected_course = get_object_or_404(Course, pk=request.POST['course_choice']) 
@@ -114,8 +151,10 @@ def SaveCourseInSchedule(request, slug):
     # If course is asynchronous, then just add it regardless
     if len(course_to_save['start_time']) < 4:
         user_info.userprofile.scheduled_courses.add(selected_course)
-        return render(request, 'saved_courses.html', {'user' : user_info, 'course': selected_course})
-        
+        #return render(request, 'saved_courses.html', {'user' : user_info, 'course': selected_course})
+        messages.success(request, "Your course has been scheduled!")
+        return HttpResponseRedirect(reverse('courses', args=(slug,)))
+
     start_time = int(course_to_save['start_time'][:2] + course_to_save['start_time'][3:])
     end_time = int(course_to_save['end_time'][:2] + course_to_save['end_time'][3:])
     
@@ -145,39 +184,11 @@ def SaveCourseInSchedule(request, slug):
                           'selected_course': selected_course}) 
     
     user_info.userprofile.scheduled_courses.add(selected_course)
-    return render(request, 'saved_courses.html', {'user' : user_info, 'course': selected_course})
+    #return render(request, 'saved_courses.html', {'user' : user_info, 'course': selected_course})
+    messages.success(request, "Your course has been scheduled!")
+    return HttpResponseRedirect(reverse('courses', args=(slug,)))
 
-def DeleteFriend(request):
-    selected_friend = get_object_or_404(User, pk=request.POST['friend_choice'])
-    
-    user_friends = request.user.userprofile.friends.all()
-    user_info = request.user
-    
-    # Ensure that the selected_course is within the user_courses
-    if selected_friend in user_friends:
-        user_info.userprofile.friends.remove(selected_friend)
-        return render(request, 'delete_friend.html', {'user' : user_info, 'friend': selected_friend})
-    
-    # Somehow selected course that was not in user list, so return an error page
-    else:
-        return render(request, 'error.html')
 
-def DeleteCourse(request):
-    selected_course = get_object_or_404(Course, pk=request.POST['course_choice'])
-    
-    user_courses = request.user.userprofile.saved_courses.all()
-    user_info = request.user
-    
-    # Ensure that the selected_course is within the user_courses
-    if selected_course in user_courses:
-        user_info.userprofile.saved_courses.remove(selected_course)
-        messages.success(request, "Your course has been deleted!")
-        return HttpResponseRedirect('/profile/')
-        #return render(request, 'delete_save.html', {'user' : user_info, 'course': selected_course})
-    
-    # Somehow selected course that was not in user list, so return an error page
-    else:
-        return render(request, 'error.html')
     
 def DeleteScheduledCourse(request):
     selected_course = get_object_or_404(Course, pk=request.POST['course_choice'])
@@ -188,8 +199,9 @@ def DeleteScheduledCourse(request):
     # Ensure that the selected_course is within the user_courses
     if selected_course in user_courses:
         user_info.userprofile.scheduled_courses.remove(selected_course)
-        return render(request, 'delete_schedule.html', {'user' : user_info, 'course': selected_course})
-    
+        #return render(request, 'delete_schedule.html', {'user' : user_info, 'course': selected_course})
+        messages.success(request, "Your course has been removed from your schedule!")
+        return HttpResponseRedirect('/profile/')
     # Somehow selected course that was not in user list, so return an error page
     else:
         return render(request, 'error.html')

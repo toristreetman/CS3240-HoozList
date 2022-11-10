@@ -12,6 +12,11 @@
     padding: 1rem;  
     
 }
+.close{
+    border: 1px solid rgba(0, 0, 0, 0.438);
+    background-color: rgba(172, 164, 164, 0);
+    
+  }
 .course {
     border: 0.1rem solid black; 
     background-color: white;

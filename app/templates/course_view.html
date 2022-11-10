@@ -48,6 +48,12 @@
     padding: 1rem;  
     
 }
+.close{
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  background-color: rgba(172, 164, 164, 0);
+  padding-top: 1px;
+  
+}
 </style>
 
 <!--{% if success == True %}
@@ -65,12 +71,19 @@
       <ul class="messages">
         {% for message in messages %}
        
-        <div {% if message.tags %}class="alert alert-success alert-dismissible fade show" {% endif %}role="alert" style="margin-top: 1rem;">
+        <div {% if message.tags %}class="alert alert-success alert-dismissible fade show" {% endif %}role="alert" id="succalert" style="margin-top: 1rem;">
           {{ message }}
           <button type="button" class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
+        <script type="text/javascript">
+          setTimeout(function () {
+    
+              // Closing the alert
+              $('#succalert').alert('close');
+          }, 2000);
+      </script>
         {% endfor %}
       </ul>
       {% endif %}

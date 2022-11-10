@@ -32,7 +32,17 @@
           <li class="nav-item" style = "width: 125px" >
             <a class="nav-link" href="{% url 'department_view' %}" >Course Catalog</a>
           </li>
-
+          {% if user.is_authenticated %}
+          <li class="nav-item" style = "width: 125px" >
+            <a class="nav-link" href="{% url 'saved_courses_view' %}" >Saved Courses</a>
+          </li>
+          <li class="nav-item" style = "width: 150px" >
+            <a class="nav-link" href="{% url 'sched_courses_view' %}" >Scheduled Courses</a>
+          </li>
+          <li class="nav-item" style = "width: 90px" >
+            <a class="nav-link" href="{% url 'saved_friends_view' %}" >Friends</a>
+          </li>
+          {% endif %}
           <!-- Load icon library -->
           <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
           <!-- The search form -->

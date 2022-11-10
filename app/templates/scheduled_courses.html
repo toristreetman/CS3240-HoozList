@@ -32,10 +32,11 @@
   
 <div class="container courselist">
     <h2>Here is your schedule</h2>
+    
     <div class="row">
 
         <div class="col">
-            {% if saved_courses_list %}
+            {% if scheduled_courses_list %}
             <table class="table table-striped table-hover table-secondary table-bordered">
                 <thead class="table-dark ">
                   <tr class="">
@@ -49,7 +50,7 @@
                   </tr>
                 </thead>
                 <tbody>
-                    {% for course in saved_courses_list %}
+                    {% for course in scheduled_courses_list %}
                     <tr>
                     <th >{{course.section}}</th>
                     <td>{{course.subject}} {{ course.course_cat }}</td>
@@ -58,29 +59,11 @@
                     <td>{{course.meeting_days}}: {{course.start_time}}-{{course.end_time}}</td>
                     <td>{{course.location}}</td>
                     <td>
-                        <div class="dropdown">
-                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                          More
-                        </button>
-                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                            <li>
-                                <!-- need to use this form block to generate the post data -->
-                                <!-- action sends the data to urls.py and method indicates that it's supposed to send data, not receive -->
-                                <!--urls.py then calls the appropriate view to execute the logic-->
-                                <form action="{% url 'delete_save2' %}" method="post">
-                                  {% csrf_token %}
-                                  <button class="btn" type  = "submit"  name="course_choice" id="course_choice" value="{{course.id}}" >Delete Course</button>
-                                </form>
-                            </li>
-                          <li>
-                            <form action="{% url 'save_schedule3' course.dept_slug%}" method="post">
-                              {% csrf_token %}
-                              <button class="dropdown-item" type = "submit" name = "course_choice" id="course_choice" value="{{course.id}}">Add to Schedule</button>
-                            </form>
-                            
-                          </li>
-                        </ul>
-                      </div>
+                      <form action="{% url 'delete_schedule2' %}" method="post">
+                        {% csrf_token %}
+                        <button class="btn btn-secondary btn-dark btn-sm" type  = "submit"  name="course_choice" id="course_choice" value="{{course.id}}" >Delete Course</button>
+                      </form>
+                    
                     </td>
                     
                   </tr>
@@ -89,7 +72,7 @@
               </table>
               {% else %}
               <p1>
-                You have no saved courses
+                You have no scheduled courses
               </p1>
               {% endif %}
         </div>

@@ -1,0 +1,107 @@
+{% extends 'navbar_footer.html' %}
+
+{% block content %}
+<style>
+    .back3 {
+    
+    background-color: rgba(30, 35, 40, 0);
+    
+    padding: 0.1rem;
+    max-width: 1685px;
+    text-align: center;
+    align-items: center;
+    
+    margin-top: 100px;
+    margin-bottom: 0px;
+    padding: 1rem;  
+    
+}
+</style>
+<div class="container back3 position-sticky">
+    <div class="row"><div class="col">
+  
+      {% if messages %}
+      <ul class="messages">
+        {% for message in messages %}
+       
+        <div {% if message.tags %}class="alert {{message.tags}} alert-dismissible fade show" {% endif %}role="alert" id = "succalert">
+          {{ message }}
+          <button  type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          
+        </div>
+        <script type="text/javascript">
+          setTimeout(function () {
+    
+              // Closing the alert
+              $('#succalert').alert('close');
+          }, 3000);
+      </script>
+        {% endfor %}
+      </ul>
+      {% endif %}
+  
+    </div></div>
+  
+  </div>
+  
+<div class="container courselist">
+
+    <div class="row">
+
+        <div class="col-8">
+            <h3>Search for friends here (enter email)</h3>
+            <form class="d-flex" method="POST" action="{% url 'search_friend'%}">
+                {%csrf_token%}
+                <input class="form-control me-2" style= "width:170px" type="search" placeholder="Find Friends..." aria-label="Search" name = "searched">
+                <button class="btn btn-dark btn-sm"  type="submit">search</button>
+              </form>
+
+        </div>
+
+        <div class="col-4">
+            <ul>
+            {% for friend in friends %}
+
+            <li>
+              {{friend.email}}
+              <form action="{% url 'save_friend' %}" method="post">
+                {% csrf_token %}
+                <button class="btn btn-secondary btn-dark" type  = "submit"  name="friend_choice" id="friend_choice" value="{{friend.id}}" >Save Friend</button>
+              </form>
+             </li>
+      
+            {% endfor %}
+        </ul></div>
+
+    </div>
+<div class="row">
+    <div class="col">
+        <h2>Here are your friends</h2>
+        {% if friends_list %}
+        <ul>
+
+            {% for friend in friends_list %}
+
+            <li>{{friend.username}} ({{friend.email}})
+              <form action="{% url 'delete_friend2' %}" method="post">
+                {% csrf_token %}
+                <button class="btn btn-secondary btn-dark" type  = "submit"  name="friend_choice" id="friend_choice" value="{{friend.id}}" >Delete Friend</button>
+              </form>
+            </form>
+            </li>
+
+            {% endfor %}
+          </ul>
+          {% else %}
+          <p1>
+            You have no friends :(
+          </p1>
+          {% endif%}
+    </div>
+</div>
+
+</div>
+
+{% endblock %}

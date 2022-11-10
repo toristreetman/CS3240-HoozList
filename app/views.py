@@ -36,7 +36,8 @@ def DepartmentView(request):
 class CoursesView(generic.DetailView):
     template_name = "course_view.html"
     model = Department
-        
+
+@login_required
 def ProfileView(request):
    # if not request.user.is_authenticated:
       #  return redirect('%s?next=%s' % (settings.LOGIN_URL, request.path))
@@ -67,12 +68,18 @@ def SearchView(request):
 # https://developer.mozilla.org/en-US/docs/Learn/Forms/Sending_and_retrieving_form_data
 
 ###################### Friends ##############################
+@login_required
+def SavedFriendsView(request):
+   
+    friends_list = request.user.userprofile.friends.all()
+    return render(request, 'saved_friends.html', {'friends_list': friends_list,})
+
 def SearchFriendView(request):
     if request.method == "POST":
         searched = request.POST['searched']
         friends = User.objects.filter(Q(first_name__icontains = searched)|Q(last_name__icontains = searched)
         |Q(email__istartswith = searched))
-        return render(request, 'profile.html',{'searched': searched, 'friends': friends})
+        return render(request, 'saved_friends.html',{'searched': searched, 'friends': friends})
     else:
         return render(request, 'profile.html')
 
@@ -83,10 +90,21 @@ def SaveFriend(request):
 
     #adding the course to the new UserProfile model 
     user_saving.userprofile.friends.add(friend_to_save)
+    messages.success(request, "Your friend has been added!")
+    return HttpResponseRedirect('/saved-friends')
 
-    return render(request,'saved_friend.html',{'user' : user_saving, 'friend' :friend_to_save})
 
 def DeleteFriend(request):
+     # some logic to determine the redirect URL since this view is called from many places in the website
+    incoming_url = request.get_full_path()
+    #print(incoming_url)
+    split_url = incoming_url.split('/')
+    #print(split_url)
+    redirect_url = ""
+    if split_url[1] == 'saved-friends':
+        redirect_url = '/saved-friends/'
+    elif split_url[1] == 'profile':
+        redirect_url = '/profile/'
     selected_friend = get_object_or_404(User, pk=request.POST['friend_choice'])
     
     user_friends = request.user.userprofile.friends.all()
@@ -95,14 +113,21 @@ def DeleteFriend(request):
     # Ensure that the selected_course is within the user_courses
     if selected_friend in user_friends:
         user_info.userprofile.friends.remove(selected_friend)
-        return render(request, 'delete_friend.html', {'user' : user_info, 'friend': selected_friend})
-    
+        #return render(request, 'delete_friend.html', {'user' : user_info, 'friend': selected_friend})
+        messages.success(request, "Your friend has been deleted!")
+        return HttpResponseRedirect(redirect_url)
     # Somehow selected course that was not in user list, so return an error page
     else:
         return render(request, 'error.html')
 
 
 ######################  Save Courses ##############################
+@login_required
+def SavedCoursesView(request):
+   
+    saved_courses_list = request.user.userprofile.saved_courses.all()
+    return render(request, 'saved_courses.html', {'saved_courses_list': saved_courses_list,})
+
 def SaveCourse(request, slug):
 
     #accessing POST data sent by user (name and value variables)
@@ -120,6 +145,18 @@ def SaveCourse(request, slug):
     return HttpResponseRedirect(reverse('courses', args=(slug,)))
 
 def DeleteCourse(request):
+    # some logic to determine the redirect URL since this view is called from many places in the website
+    incoming_url = request.get_full_path()
+    #print(incoming_url)
+    split_url = incoming_url.split('/')
+    #print(split_url)
+    redirect_url = ""
+    if split_url[1] == 'saved-courses':
+        redirect_url = '/saved-courses/'
+    elif split_url[1] == 'profile':
+        redirect_url = '/profile/'
+    
+        
     selected_course = get_object_or_404(Course, pk=request.POST['course_choice'])
     
     user_courses = request.user.userprofile.saved_courses.all()
@@ -129,7 +166,7 @@ def DeleteCourse(request):
     if selected_course in user_courses:
         user_info.userprofile.saved_courses.remove(selected_course)
         messages.success(request, "Your course has been deleted!")
-        return HttpResponseRedirect('/profile/')
+        return HttpResponseRedirect(redirect_url)
         #return render(request, 'delete_save.html', {'user' : user_info, 'course': selected_course})
     
     # Somehow selected course that was not in user list, so return an error page
@@ -139,7 +176,28 @@ def DeleteCourse(request):
 
 
 ######################  Schedule Courses ##############################
+@login_required
+def ScheduledCoursesView(request):
+   
+    scheduled_courses_list = request.user.userprofile.scheduled_courses.all()
+    return render(request, 'scheduled_courses.html', {'scheduled_courses_list': scheduled_courses_list,})
+
 def SaveCourseInSchedule(request, slug):
+
+    # some logic to determine the redirect URL since this view is called from many places in the website
+    incoming_url = request.get_full_path()
+    #print(incoming_url)
+    split_url = incoming_url.split('/')
+    #print(split_url)
+    redirect_url = ""
+    if split_url[1] == 'dept-list':
+        redirect_url = '/dept-list/' + slug + '/'
+    elif split_url[1] == 'profile':
+        redirect_url = '/profile/'
+    else:
+        redirect_url = '/saved-courses/'
+
+    
     # access course based on request ID
     selected_course = get_object_or_404(Course, pk=request.POST['course_choice']) 
     course_to_save = vars(selected_course)
@@ -153,7 +211,7 @@ def SaveCourseInSchedule(request, slug):
         user_info.userprofile.scheduled_courses.add(selected_course)
         #return render(request, 'saved_courses.html', {'user' : user_info, 'course': selected_course})
         messages.success(request, "Your course has been scheduled!")
-        return HttpResponseRedirect(reverse('courses', args=(slug,)))
+        return HttpResponseRedirect(redirect_url)
 
     start_time = int(course_to_save['start_time'][:2] + course_to_save['start_time'][3:])
     end_time = int(course_to_save['end_time'][:2] + course_to_save['end_time'][3:])
@@ -172,25 +230,42 @@ def SaveCourseInSchedule(request, slug):
         comp_start_time = int(dict_saved_course['start_time'][:2] + dict_saved_course['start_time'][3:]) 
         comp_end_time = int(dict_saved_course['end_time'][:2] + dict_saved_course['end_time'][3:]) 
         if start_time >= comp_start_time and start_time <= comp_end_time:
-            return render(request, 'course_schedule_error.html', 
-                          {'user' : user_info, 
-                          'conflicted_course': saved_course,
-                          'selected_course': course_to_save})
+            messages.error(request, "The course " + course_to_save['dept_slug'] + " " +str(course_to_save['course_cat']) + " conflicts with " +dict_saved_course['dept_slug']+" "+ str(dict_saved_course['course_cat'])+"!")
+            # return render(request, 'course_schedule_error.html', 
+            #               {'user' : user_info, 
+            #               'conflicted_course': saved_course,
+            #               'selected_course': course_to_save})
+            return HttpResponseRedirect(redirect_url)
             
         elif end_time >= comp_start_time and end_time <= comp_end_time:
-            return render(request, 'course_schedule_error.html', 
-                          {'user' : user_info, 
-                          'conflicted_course': saved_course,
-                          'selected_course': selected_course}) 
+            messages.error(request, "The course " + course_to_save['dept_slug'] + " " +str(course_to_save['course_cat']) + " conflicts with " +dict_saved_course['dept_slug']+" "+ str(dict_saved_course['course_cat'])+"!")
+            return HttpResponseRedirect(redirect_url)
+            # return render(request, 'course_schedule_error.html', 
+            #               {'user' : user_info, 
+            #               'conflicted_course': saved_course,
+            #               'selected_course': selected_course}) 
     
     user_info.userprofile.scheduled_courses.add(selected_course)
     #return render(request, 'saved_courses.html', {'user' : user_info, 'course': selected_course})
     messages.success(request, "Your course has been scheduled!")
-    return HttpResponseRedirect(reverse('courses', args=(slug,)))
+    print(request.get_full_path())
+    return HttpResponseRedirect(redirect_url)
+    
 
 
     
 def DeleteScheduledCourse(request):
+    # some logic to determine the redirect URL since this view is called from many places in the website
+    incoming_url = request.get_full_path()
+    #print(incoming_url)
+    split_url = incoming_url.split('/')
+    #print(split_url)
+    redirect_url = ""
+    if split_url[1] == 'sched-courses':
+        redirect_url = '/sched-courses/'
+    elif split_url[1] == 'profile':
+        redirect_url = '/profile/'
+    
     selected_course = get_object_or_404(Course, pk=request.POST['course_choice'])
     
     user_courses = request.user.userprofile.scheduled_courses.all()
@@ -200,8 +275,8 @@ def DeleteScheduledCourse(request):
     if selected_course in user_courses:
         user_info.userprofile.scheduled_courses.remove(selected_course)
         #return render(request, 'delete_schedule.html', {'user' : user_info, 'course': selected_course})
-        messages.success(request, "Your course has been removed from your schedule!")
-        return HttpResponseRedirect('/profile/')
+        messages.success(request, "The course has been removed from your schedule!")
+        return HttpResponseRedirect(redirect_url)
     # Somehow selected course that was not in user list, so return an error page
     else:
         return render(request, 'error.html')

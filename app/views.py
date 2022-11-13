@@ -79,13 +79,21 @@ def SearchFriendView(request):
         searched = request.POST['searched']
         friends = User.objects.filter(Q(first_name__icontains = searched)|Q(last_name__icontains = searched)
         |Q(email__istartswith = searched))
-        return render(request, 'saved_friends.html',{'searched': searched, 'friends': friends})
+        friends_list = request.user.userprofile.friends.all()
+        return render(request, 'saved_friends.html',{
+            'searched': searched, 
+            'friends': friends,
+            'friends_list': friends_list,
+            })
     else:
         return render(request, 'profile.html')
 
 @login_required
 def SaveFriend(request):
-    friend_to_save = get_object_or_404(User, pk=request.POST['friend_choice'])
+    try:
+        friend_to_save = get_object_or_404(User, pk=request.POST['friend_choice'])
+    except:
+        return render(request, 'error.html')
 
     user_saving = request.user
 
@@ -106,7 +114,10 @@ def DeleteFriend(request):
         redirect_url = '/saved-friends/'
     elif split_url[1] == 'profile':
         redirect_url = '/profile/'
-    selected_friend = get_object_or_404(User, pk=request.POST['friend_choice'])
+    try:
+        selected_friend = get_object_or_404(User, pk=request.POST['friend_choice'])
+    except:
+        return render(request, 'error.html')
     
     user_friends = request.user.userprofile.friends.all()
     user_info = request.user

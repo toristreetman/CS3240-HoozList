@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import DetailView
-from app.models import Department, Course
+from app.models import Department, Course, Comment
 import requests
 from django.views import generic
 from django.forms.models import model_to_dict
@@ -10,7 +10,6 @@ from django.contrib.auth.models import User, AnonymousUser
 from django.db.models import Q
 from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
-from django.contrib.auth.decorators import login_required
 from django.conf import settings
 from django.shortcuts import redirect
 from django.contrib.auth.decorators import login_required
@@ -24,12 +23,9 @@ def index(request):
 def login(request):  
     return render(request, 'app.html')
 
-
 def userSettings(request):
     return render(request, 'userSettings_view.html')
-
-
-
+    
 def DepartmentView(request):
     d = Department.objects.all().order_by('slug')
     all_departments = {
@@ -74,10 +70,10 @@ def SearchView(request):
 ###################### Friends ##############################
 @login_required
 def SavedFriendsView(request):
-   
     friends_list = request.user.userprofile.friends.all()
     return render(request, 'saved_friends.html', {'friends_list': friends_list,})
 
+@login_required
 def SearchFriendView(request):
     if request.method == "POST":
         searched = request.POST['searched']
@@ -87,6 +83,7 @@ def SearchFriendView(request):
     else:
         return render(request, 'profile.html')
 
+@login_required
 def SaveFriend(request):
     friend_to_save = get_object_or_404(User, pk=request.POST['friend_choice'])
 
@@ -97,7 +94,7 @@ def SaveFriend(request):
     messages.success(request, "Your friend has been added!")
     return HttpResponseRedirect('/saved-friends')
 
-
+@login_required
 def DeleteFriend(request):
      # some logic to determine the redirect URL since this view is called from many places in the website
     incoming_url = request.get_full_path()
@@ -124,6 +121,50 @@ def DeleteFriend(request):
     else:
         return render(request, 'error.html')
 
+@login_required
+def FriendView(request, owner=None):
+    # Check if user refreshed twice: if they did then error them out eloquently
+    try:
+        selected_friend = User.objects.get(username=owner) 
+    except:
+        return render(request, 'error.html')
+    user_friends = request.user.userprofile.friends.all()
+
+    if selected_friend in user_friends:
+
+        scheduled_courses_list = selected_friend.userprofile.scheduled_courses.all()
+        comments = selected_friend.userprofile.comments_received.all()
+        return render(request, 'friend_courses.html', {
+            'scheduled_courses_list': scheduled_courses_list,
+            'comments_received': comments,
+            'friend': selected_friend
+            })
+    else:
+        return render(request, 'error.html')
+
+######################  Add Comments ##############################
+
+@login_required
+def AddComment(request, owner=None):
+    try:
+        selected_friend = User.objects.get(username=owner)
+    except:
+        return render(request, 'error.html')
+    
+    user_friends = request.user.userprofile.friends.all()
+    
+    if selected_friend in user_friends:
+        if request.POST.get('comment'):
+            msg = Comment.objects.create(comment=request.POST.get('comment'))
+            selected_friend.userprofile.comments_received.add(msg)
+            request.user.userprofile.comments_sent.add(msg)
+
+            scheduled_courses_list = selected_friend.userprofile.scheduled_courses.all()
+            comments = selected_friend.userprofile.comments_received.all()
+
+    return HttpResponseRedirect('/saved-friends/'+selected_friend.username)
+
+# TODO: Add DeleteComment(request) to delete comments from a schedule if you are the owner of the comment
 
 ######################  Save Courses ##############################
 @login_required
@@ -182,9 +223,12 @@ def DeleteCourse(request):
 ######################  Schedule Courses ##############################
 @login_required
 def ScheduledCoursesView(request):
-   
     scheduled_courses_list = request.user.userprofile.scheduled_courses.all()
-    return render(request, 'scheduled_courses.html', {'scheduled_courses_list': scheduled_courses_list,})
+    comments = request.user.userprofile.comments_received.all()
+    return render(request, 'scheduled_courses.html', {
+        'scheduled_courses_list': scheduled_courses_list,
+        'comments_received': comments,
+        })
 
 def SaveCourseInSchedule(request, slug):
 
@@ -204,6 +248,7 @@ def SaveCourseInSchedule(request, slug):
     
     # access course based on request ID
     selected_course = get_object_or_404(Course, pk=request.POST['course_choice']) 
+        
     course_to_save = vars(selected_course)
 
     # access user courses and information

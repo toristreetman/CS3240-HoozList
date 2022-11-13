@@ -83,10 +83,34 @@
               </p1>
               {% endif %}
         </div>
-
+    
     </div>
 
-
+<div>
+    <h3> Add your comments here! </h3>
+    <form action="{% url 'add_comment' owner=friend.username%}" method="post">
+        {% csrf_token %}
+        <textarea cols="35" rows="8" name="comment"></textarea><br><br>
+        <input type="submit" value="Submit" class="btn btn-dark">
+    </form>
+                    
 </div>
+
+<div>
+    {% if comments_received %}
+    <ul>
+        {% for comment in comments_received %}
+        <li>
+            {{comment.comment}} | {{comment.date}}
+        </li>
+        {% endfor %}
+        <br>
+    <ul>
+    {% else %}
+    <p1>There are no comments :(</p1><br>
+    <br>
+    {%endif%}
+</div>
+
 
 {% endblock %}

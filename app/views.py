@@ -23,6 +23,9 @@ def index(request):
 def login(request):  
     return render(request, 'app.html')
 
+def userSettings(request):
+    return render(request, 'userSettings_view.html')
+    
 def DepartmentView(request):
     d = Department.objects.all().order_by('slug')
     all_departments = {

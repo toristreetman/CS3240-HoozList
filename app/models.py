@@ -12,7 +12,7 @@ class Department(models.Model):
     slug = models.SlugField(max_length=10, null=True)
     
     def __str__(self):
-        return self.subject
+        return self.slug
     
 class Course(models.Model):
     """

@@ -5,16 +5,20 @@ body{
 .avatar-xl img {
     width: 110px;
 }
-.login-container {
-    margin-top: 10%;
-    border: 0px solid #CCD1D1;
-    border-radius: 12px;
-    box-shadow: 0 0px 28px 0 rgb(0 0 0 / 8%);
-    max-width: 50%;
-    background: #FFF;
-    z-index: 1;
-    position: relative;
-  }
+.profileback {
+    border: 0.1rem solid black; 
+    background-color: white;
+    border-radius: 0.5rem;
+    padding: 0.1rem;
+    max-width: 1400px;
+    text-align: center;
+    align-items: center;
+    margin: auto;
+    margin-top: 10rem;
+    margin-bottom: 10rem;
+    padding: 1rem;  
+    opacity: 0.9;
+}
 .rounded-circle {
     border-radius: 50% !important;
 }

@@ -188,7 +188,10 @@ def SaveCourse(request, slug):
 
     #accessing POST data sent by user (name and value variables)
     #getting specific course based on its unique ID
-    course_to_save = get_object_or_404(Course, pk=request.POST['course_choice'])
+    try:
+        course_to_save = get_object_or_404(Course, pk=request.POST['course_choice'])
+    except:
+        return render(request, 'error.html')
 
     user_saving = request.user
 
@@ -212,8 +215,10 @@ def DeleteCourse(request):
     elif split_url[1] == 'profile':
         redirect_url = '/profile/'
     
-        
-    selected_course = get_object_or_404(Course, pk=request.POST['course_choice'])
+    try: 
+        selected_course = get_object_or_404(Course, pk=request.POST['course_choice'])
+    except:
+        return render(request, 'error.html')
     
     user_courses = request.user.userprofile.saved_courses.all()
     user_info = request.user
@@ -258,7 +263,10 @@ def SaveCourseInSchedule(request, slug):
 
     
     # access course based on request ID
-    selected_course = get_object_or_404(Course, pk=request.POST['course_choice']) 
+    try:
+        selected_course = get_object_or_404(Course, pk=request.POST['course_choice']) 
+    except:
+        return render(request, 'error.html')
         
     course_to_save = vars(selected_course)
 
@@ -325,8 +333,11 @@ def DeleteScheduledCourse(request):
         redirect_url = '/sched-courses/'
     elif split_url[1] == 'profile':
         redirect_url = '/profile/'
-    
-    selected_course = get_object_or_404(Course, pk=request.POST['course_choice'])
+
+    try: 
+        selected_course = get_object_or_404(Course, pk=request.POST['course_choice'])
+    except:
+        return render(request, 'error.html')
     
     user_courses = request.user.userprofile.scheduled_courses.all()
     user_info = request.user

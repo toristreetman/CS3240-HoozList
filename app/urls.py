@@ -29,7 +29,8 @@ urlpatterns = [
    
     path('saved-friends/', views.SavedFriendsView, name='saved_friends_view'),
     path('saved-friends/delete_friend', views.DeleteFriend, name='delete_friend2'),
-    
+    path('saved-friends/friend_view', views.FriendView, name='friend_view'),
+
     path('search_view/', views.SearchView, name='search_view'),
     
 ]

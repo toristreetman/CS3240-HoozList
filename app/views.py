@@ -70,10 +70,10 @@ def SearchView(request):
 ###################### Friends ##############################
 @login_required
 def SavedFriendsView(request):
-   
     friends_list = request.user.userprofile.friends.all()
     return render(request, 'saved_friends.html', {'friends_list': friends_list,})
 
+@login_required
 def SearchFriendView(request):
     if request.method == "POST":
         searched = request.POST['searched']
@@ -83,6 +83,7 @@ def SearchFriendView(request):
     else:
         return render(request, 'profile.html')
 
+@login_required
 def SaveFriend(request):
     friend_to_save = get_object_or_404(User, pk=request.POST['friend_choice'])
 
@@ -93,7 +94,7 @@ def SaveFriend(request):
     messages.success(request, "Your friend has been added!")
     return HttpResponseRedirect('/saved-friends')
 
-
+@login_required
 def DeleteFriend(request):
      # some logic to determine the redirect URL since this view is called from many places in the website
     incoming_url = request.get_full_path()
@@ -120,6 +121,16 @@ def DeleteFriend(request):
     else:
         return render(request, 'error.html')
 
+@login_required
+def FriendView(request):
+    selected_friend = get_object_or_404(User, pk=request.POST['friend_choice'])
+    user_friends = request.user.userprofile.friends.all()
+
+    if selected_friend in user_friends:
+        scheduled_courses_list = selected_friend.userprofile.scheduled_courses.all()
+        return render(request, 'friend_courses.html', {'scheduled_courses_list': scheduled_courses_list,})
+    else:
+        return render(request, 'error.html')
 
 ######################  Save Courses ##############################
 @login_required

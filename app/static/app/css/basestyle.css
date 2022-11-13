@@ -126,3 +126,12 @@ a:hover {
   color: #0719dd;
   font-size: .9em;
 }   
+
+
+ul {
+    list-style: none;
+}
+
+li {
+    list-style: none;
+}

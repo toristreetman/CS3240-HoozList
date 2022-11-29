@@ -35,6 +35,12 @@ SECRET_KEY = 'django-insecure-)#@w*4lbv@*u#rtc(0rg5nw@tw(bozlnppe7)hp(!osclk$75g
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+# Switch HTTP to HTTPS if DEBUG is False
+if not DEBUG:
+    SECURE_SSL_REDIRECT = True
+else:
+    SECURE_SSL_REDIRECT = False
+
 ALLOWED_HOSTS = ['127.0.0.1', 
     'localhost',
     'uva-cs3240-f22-a14.herokuapp.com', # Main

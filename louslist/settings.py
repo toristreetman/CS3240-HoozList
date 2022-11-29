@@ -19,8 +19,10 @@ environ.Env.read_env()
 
 if 'DATABASE_URL' in os.environ:
     SITE_ID = 5 
+    DEBUG = False
 else:
     SITE_ID = 5
+    DEBUG = True
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -31,15 +33,6 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-)#@w*4lbv@*u#rtc(0rg5nw@tw(bozlnppe7)hp(!osclk$75g'
-
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False 
-
-# Switch HTTP to HTTPS if DEBUG is False
-if not DEBUG:
-    SECURE_SSL_REDIRECT = True
-else:
-    SECURE_SSL_REDIRECT = False
 
 ALLOWED_HOSTS = ['127.0.0.1', 
     'localhost',

@@ -33,7 +33,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-)#@w*4lbv@*u#rtc(0rg5nw@tw(bozlnppe7)hp(!osclk$75g'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False 
 
 # Switch HTTP to HTTPS if DEBUG is False
 if not DEBUG:

@@ -94,7 +94,21 @@
         </div>
 
     </div>
-
+    <div>
+      {% if comments_received %}
+      <ul>
+          {% for comment in comments_received %}
+          <li>
+              {{comment.comment}} | {{comment.date}}
+          </li>
+          {% endfor %}
+          <br>
+      <ul>
+      {% else %}
+      <p1>There are no comments :(</p1><br>
+      <br>
+      {%endif%}
+  </div>
 
 </div>
 

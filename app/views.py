@@ -166,7 +166,7 @@ def AddComment(request, owner=None):
     
     if selected_friend in user_friends:
         if request.POST.get('comment'):
-            msg = Comment.objects.create(comment=request.POST.get('comment'))
+            msg = Comment.objects.create(comment=request.POST.get('comment'), author = request.user.first_name +request.user.last_name)
             selected_friend.userprofile.comments_received.add(msg)
             request.user.userprofile.comments_sent.add(msg)
 

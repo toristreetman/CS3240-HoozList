@@ -94,21 +94,54 @@
         </div>
 
     </div>
-    <div>
+    
+  <h2 style="text-align:left">Comments:</h2>
+    <div class="row"><div class="col">
       {% if comments_received %}
-      <ul>
-          {% for comment in comments_received %}
-          <li>
-              {{comment.comment}} | {{comment.date}}
-          </li>
-          {% endfor %}
-          <br>
-      <ul>
+      {% for comment in comments_received %}
+      <div class="card p-3">
+    
+        <div class="d-flex justify-content-between align-items-center">
+    
+      <div class="user d-flex flex-row align-items-center">
+    
+        <img src="https://i.imgur.com/WUGxiYh.jpeg" width="30" class="user-img rounded-circle mr-2">
+        <span><small class="font-weight-bold text-primary">{{comment.author}}</small> <small class="font-weight-bold">{{comment.comment}}</small></span>
+          
+      </div>
+    
+    
+      <small>{{comment.date}}</small>
+    
+      </div>
+    
+    
+      <div class="action d-flex justify-content-between mt-2 align-items-center">
+    
+        <div class="reply px-4">
+            <small><form action="{% url 'delete_schedule2' %}" method="post">
+              {% csrf_token %}
+              <button class="btn btn-secondary btn-dark btn-sm" type  = "submit"  name="course_choice" id="course_choice" value="{{course.id}}" >Delete Comment</button>
+            </form></small>
+            
+           
+        </div>
+    
+        
+      </div>
+    
+      
+        
+      </div>
+      {% endfor %}
       {% else %}
-      <p1>There are no comments :(</p1><br>
-      <br>
-      {%endif%}
-  </div>
+        <p1>There are no comments :(</p1><br>
+        <br>
+      
+        {%endif%}
+
+
+    </div></div>
 
 </div>
 

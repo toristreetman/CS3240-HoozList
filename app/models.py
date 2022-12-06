@@ -42,7 +42,7 @@ class Course(models.Model):
     wait_cap = models.CharField(max_length=20, null=True)
     enrollment_total = models.CharField(max_length=20, null=True)
     enrollment_available = models.CharField(max_length=20, null=True)
-    topic  = models.CharField(max_length=100, null=True)
+    topic = models.CharField(max_length=100, null=True)
     
     location = models.CharField(max_length=70, null=True)
     

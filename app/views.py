@@ -203,6 +203,34 @@ def SaveCourse(request, slug):
     messages.success(request, "Your course has been saved!")
     return HttpResponseRedirect(reverse('courses', args=(slug,)))
 
+def SearchSaveCourse(request):    
+    try:
+        selected_course = get_object_or_404(Course, pk=request.POST['course_choice']) 
+    except:
+        return render(request, 'error.html')
+    course_to_save = vars(selected_course)
+    slug = course_to_save['dept_slug']
+    # some logic to determine the redirect URL since this view is called from many places in the website
+    incoming_url = request.get_full_path() #print(incoming_url)
+    split_url = incoming_url.split('/')
+    if split_url[1] == 'dept-list':
+        redirect_url = '/dept-list/' + slug + '/'
+    elif split_url[1] == 'profile':
+        redirect_url = '/profile/'
+    else:
+        redirect_url = '/saved-courses/'
+    #accessing POST data sent by user (name and value variables)
+    #getting specific course based on its unique ID
+
+    user_saving = request.user
+
+    #adding the course to the new UserProfile model 
+    user_saving.userprofile.saved_courses.add(selected_course)
+
+    dictionary = {"success": True, "msg": "Course Saved Successfully" }
+    messages.success(request, "Your course has been saved!")
+    return HttpResponseRedirect(redirect_url)
+
 def DeleteCourse(request):
     # some logic to determine the redirect URL since this view is called from many places in the website
     incoming_url = request.get_full_path()
@@ -247,7 +275,6 @@ def ScheduledCoursesView(request):
         })
 
 def SaveCourseInSchedule(request, slug):
-
     # some logic to determine the redirect URL since this view is called from many places in the website
     incoming_url = request.get_full_path()
     #print(incoming_url)
@@ -283,7 +310,9 @@ def SaveCourseInSchedule(request, slug):
 
     start_time = int(course_to_save['start_time'][:2] + course_to_save['start_time'][3:])
     end_time = int(course_to_save['end_time'][:2] + course_to_save['end_time'][3:])
-    
+   
+    day1 = course_to_save['meeting_days']
+    days_of_week = [''.join(s).lower() for s in zip(day1[::2], day1[1::2])]
     # see if there are any course conflicts
     # if any conflict: return an error page
     # else: add the course to schedule
@@ -294,7 +323,17 @@ def SaveCourseInSchedule(request, slug):
         # Check if there is no time, then just add the course regardless
         if len(dict_saved_course['start_time']) < 4:
             continue
-        
+        day2 = dict_saved_course['meeting_days']
+        comp_days = [''.join(s).lower() for s in zip(day2[::2], day2[1::2])]
+
+        diff_days = False
+        for day in comp_days:
+            if day in days_of_week:
+               diff_days = True 
+
+        if not diff_days:
+            continue
+
         comp_start_time = int(dict_saved_course['start_time'][:2] + dict_saved_course['start_time'][3:]) 
         comp_end_time = int(dict_saved_course['end_time'][:2] + dict_saved_course['end_time'][3:]) 
         if start_time >= comp_start_time and start_time <= comp_end_time:
@@ -320,6 +359,85 @@ def SaveCourseInSchedule(request, slug):
     return HttpResponseRedirect(redirect_url)
     
 
+def SearchSaveCourseInSchedule(request):
+
+    try:
+        selected_course = get_object_or_404(Course, pk=request.POST['course_choice']) 
+    except:
+        return render(request, 'error.html')
+    course_to_save = vars(selected_course)
+    slug = course_to_save['dept_slug']
+    # some logic to determine the redirect URL since this view is called from many places in the website
+    incoming_url = request.get_full_path() #print(incoming_url)
+    split_url = incoming_url.split('/')
+    if split_url[1] == 'dept-list':
+        redirect_url = '/dept-list/' + slug + '/'
+    elif split_url[1] == 'profile':
+        redirect_url = '/profile/'
+    else:
+        redirect_url = '/sched-courses/'
+
+  
+    # access user courses and information
+    user_info = request.user
+    user_courses = request.user.userprofile.scheduled_courses.all()
+
+    # If course is asynchronous, then just add it regardless
+    if len(course_to_save['start_time']) < 4:
+        user_info.userprofile.scheduled_courses.add(selected_course)
+        #return render(request, 'saved_courses.html', {'user' : user_info, 'course': selected_course})
+        messages.success(request, "Your course has been scheduled!")
+        return HttpResponseRedirect(redirect_url)
+
+    start_time = int(course_to_save['start_time'][:2] + course_to_save['start_time'][3:])
+    end_time = int(course_to_save['end_time'][:2] + course_to_save['end_time'][3:])
+   
+    day1 = course_to_save['meeting_days']
+    days_of_week = [''.join(s).lower() for s in zip(day1[::2], day1[1::2])]
+    # see if there are any course conflicts
+    # if any conflict: return an error page
+    # else: add the course to schedule
+    for saved_course in user_courses:
+        dict_saved_course = vars(saved_course)
+        
+        
+        # Check if there is no time, then just add the course regardless
+        if len(dict_saved_course['start_time']) < 4:
+            continue
+        day2 = dict_saved_course['meeting_days']
+        comp_days = [''.join(s).lower() for s in zip(day2[::2], day2[1::2])]
+
+        diff_days = False
+        for day in comp_days:
+            if day in days_of_week:
+               diff_days = True 
+
+        if not diff_days:
+            continue
+
+        comp_start_time = int(dict_saved_course['start_time'][:2] + dict_saved_course['start_time'][3:]) 
+        comp_end_time = int(dict_saved_course['end_time'][:2] + dict_saved_course['end_time'][3:]) 
+        if start_time >= comp_start_time and start_time <= comp_end_time:
+            messages.error(request, "The course " + course_to_save['dept_slug'] + " " +str(course_to_save['course_cat']) + " conflicts with " +dict_saved_course['dept_slug']+" "+ str(dict_saved_course['course_cat'])+"!")
+            # return render(request, 'course_schedule_error.html', 
+            #               {'user' : user_info, 
+            #               'conflicted_course': saved_course,
+            #               'selected_course': course_to_save})
+            return HttpResponseRedirect(redirect_url)
+            
+        elif end_time >= comp_start_time and end_time <= comp_end_time:
+            messages.error(request, "The course " + course_to_save['dept_slug'] + " " +str(course_to_save['course_cat']) + " conflicts with " +dict_saved_course['dept_slug']+" "+ str(dict_saved_course['course_cat'])+"!")
+            return HttpResponseRedirect(redirect_url)
+            # return render(request, 'course_schedule_error.html', 
+            #               {'user' : user_info, 
+            #               'conflicted_course': saved_course,
+            #               'selected_course': selected_course}) 
+    
+    user_info.userprofile.scheduled_courses.add(selected_course)
+    #return render(request, 'saved_courses.html', {'user' : user_info, 'course': selected_course})
+    messages.success(request, "Your course has been scheduled!")
+    print(request.get_full_path())
+    return HttpResponseRedirect(redirect_url)
 
     
 def DeleteScheduledCourse(request):

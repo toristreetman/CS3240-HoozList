@@ -166,7 +166,7 @@ def AddComment(request, owner=None):
     
     if selected_friend in user_friends:
         if request.POST.get('comment'):
-            msg = Comment.objects.create(comment=request.POST.get('comment'), author = request.user.first_name +request.user.last_name)
+            msg = Comment.objects.create(comment=request.POST.get('comment'), author = request.user.username)
             selected_friend.userprofile.comments_received.add(msg)
             request.user.userprofile.comments_sent.add(msg)
 
@@ -175,7 +175,24 @@ def AddComment(request, owner=None):
 
     return HttpResponseRedirect('/saved-friends/'+selected_friend.username)
 
-# TODO: Add DeleteComment(request) to delete comments from a schedule if you are the owner of the comment
+@login_required
+def DeleteComment(request, owner=None):
+    try:
+        selected_friend = User.objects.get(username=owner)
+    except:
+        return render(request, 'error.html')
+
+    try:
+        comment = get_object_or_404(Comment, pk=request.POST['comment_choice'])
+    except:
+        return render(request, 'error.html')
+    
+    comment.delete()    
+
+    if (request.user == selected_friend):
+        return HttpResponseRedirect('/sched-courses/')
+    return HttpResponseRedirect('/saved-friends/'+selected_friend.username)
+        
 
 ######################  Save Courses ##############################
 @login_required

@@ -118,11 +118,12 @@
       <div class="action d-flex justify-content-between mt-2 align-items-center">
     
         <div class="reply px-4">
-            <small><form action="{% url 'delete_schedule2' %}" method="post">
+            {% if comment.author == user.username %}
+            <small><form action="{% url 'del_comment' owner=friend.username %}" method="post">
               {% csrf_token %}
-              <button class="btn btn-secondary btn-dark btn-sm" type  = "submit"  name="course_choice" id="course_choice" value="{{course.id}}" >Delete Comment</button>
+              <button class="btn btn-secondary btn-dark btn-sm" type  = "submit"  name="comment_choice" id="comment_choice" value="{{comment.id}}" >Delete Comment</button>
             </form></small>
-            
+            {% endif %} 
            
         </div>
     

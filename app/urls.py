@@ -31,6 +31,8 @@ urlpatterns = [
     path('saved-friends/<str:owner>/add_comment', views.AddComment, name='add_comment'),
 
     path('search_view/', views.SearchView, name='search_view'),
+    path('search_view/save_course', views.SearchSaveCourse, name='search_save_course'),
+    path('search_view/save_schedule', views.SearchSaveCourseInSchedule, name = 'search_save_schedule'),
     path('user-settings', views.userSettings, name='user-settings'),
     
 ]

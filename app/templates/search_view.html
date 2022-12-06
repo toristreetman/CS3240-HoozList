@@ -56,17 +56,32 @@
           <td>{{course.instructor_name}}</td>
           <td>{{course.meeting_days}}: {{course.start_time}}-{{course.end_time}}</td>
           <td>{{course.location}}</td>
-          <td>
-              <div class="dropdown">
-              <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                More
-              </button>
-              <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                <li><a class="dropdown-item" href="#">Save</a></li>
-                <li><a class="dropdown-item" href="#">Add to Schedule</a></li>
-              </ul>
-            </div>
-          </td>
+        <td>
+            <div class="dropdown">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+              More
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                <li>
+                    <!-- need to use this form block to generate the post data -->
+                    <!-- action sends the data to urls.py and method indicates that it's supposed to send data, not receive -->
+                    <!--urls.py then calls the appropriate view to execute the logic-->
+                    <form action="{% url 'search_save_course' %}" method="post">
+                    {% csrf_token %}
+                    <!--this sends back whatever is in name and value-->
+                    <button class="dropdown-item" type  = "submit" name="course_choice" id="course_choice" value="{{course.id}}" >Save Course</button>
+                    </form>
+                </li>
+              <li>
+                <form action="{% url 'search_save_schedule' %}" method="post">
+                  {% csrf_token %}
+                  <button class="dropdown-item" type = "submit" name = "course_choice" id="course_choice" value="{{course.id}}">Add to Schedule</button>
+                </form>
+                
+              </li>
+            </ul>
+          </div>
+        </td>
         </tr>
             </tbody>
         {% endfor %}

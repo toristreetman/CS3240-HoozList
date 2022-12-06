@@ -48,57 +48,125 @@
   
 <div class="container courselist">
 
-    <div class="row">
-
-        <div class="col-8">
-            <h3>Search for friends here (enter email)</h3>
-            <form class="d-flex" method="POST" action="{% url 'search_friend'%}">
-                {%csrf_token%}
-                <input class="form-control me-2" style= "width:170px" type="search" placeholder="Find Friends..." aria-label="Search" name = "searched">
-                <button class="btn btn-dark btn-sm"  type="submit">search</button>
-              </form>
-
-        </div>
-
-        <div class="col-4">
-            <ul>
-            {% for friend in friends %}
-
-            <li>
-              {{friend.email}}
-              <form action="{% url 'save_friend' %}" method="post">
-                {% csrf_token %}
-                <button class="btn btn-secondary btn-dark" type  = "submit"  name="friend_choice" id="friend_choice" value="{{friend.id}}" >Save Friend</button>
-              </form>
-             </li>
-      
-            {% endfor %}
-        </ul></div>
-
-    </div>
+    
 <div class="row">
     <div class="col">
         <h2>Here are your friends</h2>
         {% if friends_list %}
-        <ul>
+        
 
-            {% for friend in friends_list %}
+          <!--
 
-            <li>{{friend.username}} ({{friend.email}})
-              <form action="{% url 'delete_friend2' %}" method="post">
-                {% csrf_token %}
-                <button class="btn btn-secondary btn-dark" type="submit"  name="friend_choice" id="friend_choice" value="{{friend.id}}" >Delete Friend</button>
-              </form>
-              <a href='/saved-friends/{{friend.username}}' class='btn btn-dark'> View Schedule </a>
-            </li>
-
-            {% endfor %}
-          </ul>
-          {% else %}
+            
+          -->
+          <div class="container-fluid" style="max-width: 1700px; margin-top: 0rem;
+margin-bottom: 10rem;">
+<table class="table table-striped table-hover table-secondary table-bordered">
+    <thead class="table-dark ">
+      <tr class="">
+        <th scope="col">Name</th>
+        <th scope="col">Username</th>
+        <th scope="col">Email</th>
+        <th scope="col">Actions</th>
+        
+      </tr>
+    </thead>
+    <tbody>
+      {% for friend in friends_list %}
+        <tr>
+        <td >{{friend.first_name}}</td>
+        <td>{{friend.username}}</td>
+        <td>{{friend.email}}</td>
+        <td>
+            <div class="dropdown">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+              More
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                <li>
+                  <form action="{% url 'delete_friend2' %}" method="post">
+                  {% csrf_token %}
+                  <button class="btn btn-secondary btn-dark" type="submit"  name="friend_choice" id="friend_choice" value="{{friend.id}}" >Delete Friend</button>
+                </form>
+                
+                </li>
+              <li>
+                <a href='/saved-friends/{{friend.username}}' class='btn btn-dark'> View Schedule </a>
+              
+                
+              </li>
+            </ul>
+          </div>
+        </td>
+        
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% else %}
           <p1>
             You have no friends :(
           </p1>
           {% endif%}
+</div>
+<div class="row">
+
+  <div class="col-8">
+      <h3>Search for friends here (enter email)</h3>
+      <form class="d-flex" method="POST" action="{% url 'search_friend'%}">
+          {%csrf_token%}
+          <input class="form-control me-2" style= "width:170px" type="search" placeholder="Find Friends..." aria-label="Search" name = "searched">
+          <button class="btn btn-dark btn-sm"  type="submit">search</button>
+        </form>
+
+  </div>
+
+</div>
+
+ <!---->
+ {% if friends %}
+ <div class="container-fluid" style="max-width: 1700px; margin-top: 0rem;
+ margin-bottom: 10rem;">
+ <table class="table table-striped table-hover table-secondary table-bordered">
+     <thead class="table-dark ">
+       <tr class="">
+         <th scope="col">Name</th>
+         <th scope="col">Username</th>
+         <th scope="col">Email</th>
+         <th scope="col">Action</th>
+         
+       </tr>
+     </thead>
+     <tbody>
+       {% for friend in friends%}
+         <tr>
+         <td >{{friend.first_name}}</td>
+         <td>{{friend.username}}</td>
+         <td>{{friend.email}}</td>
+         <td>
+          <form action="{% url 'save_friend' %}" method="post">
+            {% csrf_token %}
+            <button class="btn btn-secondary btn-dark" type  = "submit"  name="friend_choice" id="friend_choice" value="{{friend.id}}" >Save Friend</button>
+          </form>
+         </td>
+         
+       </tr>
+       {% endfor %}
+     </tbody>
+   </table>
+  
+
+   {%endif%}
+ </div>
+ <!---->
+
+
+</div>
+
+</div>
+
+
+         
     </div>
 </div>
 

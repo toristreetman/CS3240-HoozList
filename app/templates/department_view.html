@@ -41,6 +41,7 @@
     padding: 1rem;  
     opacity: 1;
 }
+
 </style>
 
 <div class="container back text-center">
@@ -50,19 +51,19 @@
   </div>
   
   <div class="row"><div class="col">
-    <div class="accordion" id="accordionExample">
+    <div class="accordion deptButton" id="accordionExample">
       {% regroup department by first_letter as letter_list %}
       {% for letter in letter_list %}
       
       <div class="accordion-item">
-        <h2 class="accordion-header" id="heading{{letter.grouper }}">
-          <button class="accordion-button  collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{letter.grouper}}" aria-expanded="true" aria-controls="collapse{{letter.grouper}}">
-            <p1 style="text-align: center">{{ letter.grouper }}</p1>
+        <h2 class="accordion-header font-weight-bold" id="heading{{letter.grouper }}" style="text-align: center">
+          <button class="accordion-button  collapsed btn btn-dark  d-block text-center" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{letter.grouper}}" aria-expanded="true" aria-controls="collapse{{letter.grouper}}">
+            {{ letter.grouper }}
           </button>
         </h2>
         <div id="collapse{{letter.grouper}}" class="accordion-collapse collapse" aria-labelledby="heading{{letter.grouper}}" data-bs-parent="#accordionExample">
           <div class="accordion-body">
-            <ul class = unstyled-list>
+            <ul class = "list-unstyled">
               {% for item in letter.list %}
               <li>
               <a class="btn btn-dark" style= "width: 150px;"href="{% url 'courses' item.slug %}" role="button">

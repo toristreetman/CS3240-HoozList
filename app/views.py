@@ -283,8 +283,7 @@ def SaveCourseInSchedule(request, slug):
 
     start_time = int(course_to_save['start_time'][:2] + course_to_save['start_time'][3:])
     end_time = int(course_to_save['end_time'][:2] + course_to_save['end_time'][3:])
-    print(start_time)
-    print(end_time)
+    
     # see if there are any course conflicts
     # if any conflict: return an error page
     # else: add the course to schedule

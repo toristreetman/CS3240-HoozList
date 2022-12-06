@@ -13,6 +13,8 @@ class Department(models.Model):
     
     def __str__(self):
         return self.slug
+    def first_letter(self):
+        return self.slug and self.slug[0] or ''
     
 class Course(models.Model):
     """
@@ -55,6 +57,7 @@ class Course(models.Model):
         # EX: CS1110 -- 001: Introduction to Programming
         return self.subject + self.course_cat + " -- " + self.section + ": " + self.course_name
     
+
 class Comment(models.Model):
     """
     Model that defines a comment on a user's schedule page.

@@ -224,3 +224,15 @@ MESSAGE_TAGS = {
     messages.WARNING: 'alert-warning',
     messages.ERROR: 'alert-danger',
 }
+"""
+*  REFERENCES
+*  Title: Bootstrap5
+*  Author: Bootstrap Team
+*  Date: 11/02/2022
+*  Code version: 5.2.3
+*  URL: https://getbootstrap.com/
+*  Software License: MIT
+*
+*  
+*
+"""

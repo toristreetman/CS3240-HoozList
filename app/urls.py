@@ -29,6 +29,7 @@ urlpatterns = [
     path('saved-friends/delete_friend', views.DeleteFriend, name='delete_friend2'),
     path('saved-friends/<str:owner>', views.FriendView, name='friend_view'),
     path('saved-friends/<str:owner>/add_comment', views.AddComment, name='add_comment'),
+    path('saved-friends/<str:owner>/del_comment', views.DeleteComment, name='del_comment'),
 
     path('search_view/', views.SearchView, name='search_view'),
     path('search_view/save_course', views.SearchSaveCourse, name='search_save_course'),

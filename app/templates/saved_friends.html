@@ -86,12 +86,12 @@ margin-bottom: 10rem;">
                 <li>
                   <form action="{% url 'delete_friend2' %}" method="post">
                   {% csrf_token %}
-                  <button class="btn btn-secondary btn-dark" type="submit"  name="friend_choice" id="friend_choice" value="{{friend.id}}" >Delete Friend</button>
+                  <button class="dropdown-item" type="submit"  name="friend_choice" id="friend_choice" value="{{friend.id}}" >Delete Friend</button>
                 </form>
                 
                 </li>
               <li>
-                <a href='/saved-friends/{{friend.username}}' class='btn btn-dark'> View Schedule </a>
+                <a href='/saved-friends/{{friend.username}}' class='dropdown-item'> View Schedule </a>
               
                 
               </li>

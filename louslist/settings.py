@@ -22,7 +22,7 @@ if 'DATABASE_URL' in os.environ:
     SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
     SECURE_SSL_REDIRECT = True
 else:
-    SITE_ID = 5
+    SITE_ID = 7
     SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
     SECURE_SSL_REDIRECT = False
 
@@ -224,3 +224,15 @@ MESSAGE_TAGS = {
     messages.WARNING: 'alert-warning',
     messages.ERROR: 'alert-danger',
 }
+"""
+*  REFERENCES
+*  Title: Bootstrap5
+*  Author: Bootstrap Team
+*  Date: 11/02/2022
+*  Code version: 5.2.3
+*  URL: https://getbootstrap.com/
+*  Software License: MIT
+*
+*  
+*
+"""

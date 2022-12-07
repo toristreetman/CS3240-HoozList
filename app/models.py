@@ -81,6 +81,9 @@ class UserProfile(models.Model):
     comments_sent = models.ManyToManyField(Comment, related_name='comments_sent')
     comments_received = models.ManyToManyField(Comment, related_name='comments_received')
 
+    major = models.CharField(max_length=60, null=True)
+    year = models.CharField(max_length=20, null=True)
+
     def __str__(self):
         return self.user.username
 

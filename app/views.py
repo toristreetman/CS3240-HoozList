@@ -25,7 +25,40 @@ def login(request):
 
 def userSettings(request):
     return render(request, 'userSettings_view.html')
+
+def userSettingsUpdate(request):
+
+    name = request.POST['firstname']
+    lastname = request.POST['lastname']
+    username = request.POST['username']
+    major = request.POST['major']
+    year = request.POST['year']
     
+    if name != "":
+        request.user.first_name = name
+    
+    if lastname != "":
+        request.user.last_name = lastname
+    
+    if username != "":
+        request.user.username = username
+
+    if major != "":
+        request.user.userprofile.major = major
+    
+    if year != "":
+        request.user.userprofile.year = year
+
+    print(request.user.userprofile.major)
+    messages.success(request, "Your profile has been updated!")
+   
+
+    
+    request.user.save()
+    request.user.userprofile.save()
+    #print(year)
+    return render(request, 'userSettings_view.html')
+
 def DepartmentView(request):
     d = Department.objects.all().order_by('slug')
     all_departments = {

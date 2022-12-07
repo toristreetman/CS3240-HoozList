@@ -35,6 +35,7 @@ urlpatterns = [
     path('search_view/save_course', views.SearchSaveCourse, name='search_save_course'),
     path('search_view/save_schedule', views.SearchSaveCourseInSchedule, name = 'search_save_schedule'),
     path('user-settings', views.userSettings, name='user-settings'),
+    path('user-settings-update', views.userSettingsUpdate, name='user-settings-update'),
     
 ]
     

@@ -330,6 +330,8 @@ def SaveCourseInSchedule(request, slug):
    
     day1 = course_to_save['meeting_days']
     days_of_week = [''.join(s).lower() for s in zip(day1[::2], day1[1::2])]
+    print(day1)
+    print(days_of_week)
     # see if there are any course conflicts
     # if any conflict: return an error page
     # else: add the course to schedule
@@ -348,12 +350,13 @@ def SaveCourseInSchedule(request, slug):
             if day in days_of_week:
                diff_days = True 
 
-        if not diff_days:
-            continue
+        # if not diff_days:
+            # continue
 
+        print (diff_days)
         comp_start_time = int(dict_saved_course['start_time'][:2] + dict_saved_course['start_time'][3:]) 
         comp_end_time = int(dict_saved_course['end_time'][:2] + dict_saved_course['end_time'][3:]) 
-        if start_time >= comp_start_time and start_time <= comp_end_time:
+        if start_time >= comp_start_time and start_time <= comp_end_time and diff_days:
             messages.error(request, "The course " + course_to_save['dept_slug'] + " " +str(course_to_save['course_cat']) + " conflicts with " +dict_saved_course['dept_slug']+" "+ str(dict_saved_course['course_cat'])+"!")
             # return render(request, 'course_schedule_error.html', 
             #               {'user' : user_info, 
@@ -361,7 +364,14 @@ def SaveCourseInSchedule(request, slug):
             #               'selected_course': course_to_save})
             return HttpResponseRedirect(redirect_url)
             
-        elif end_time >= comp_start_time and end_time <= comp_end_time:
+        elif end_time >= comp_start_time and end_time <= comp_end_time and diff_days:
+            messages.error(request, "The course " + course_to_save['dept_slug'] + " " +str(course_to_save['course_cat']) + " conflicts with " +dict_saved_course['dept_slug']+" "+ str(dict_saved_course['course_cat'])+"!")
+            return HttpResponseRedirect(redirect_url)
+            # return render(request, 'course_schedule_error.html', 
+            #               {'user' : user_info, 
+            #               'conflicted_course': saved_course,
+            #               'selected_course': selected_course}) 
+        elif start_time <= comp_start_time and end_time >= comp_end_time and diff_days:
             messages.error(request, "The course " + course_to_save['dept_slug'] + " " +str(course_to_save['course_cat']) + " conflicts with " +dict_saved_course['dept_slug']+" "+ str(dict_saved_course['course_cat'])+"!")
             return HttpResponseRedirect(redirect_url)
             # return render(request, 'course_schedule_error.html', 

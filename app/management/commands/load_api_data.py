@@ -5,7 +5,7 @@ from django.core.management.base import BaseCommand
 
 class Command(BaseCommand):
     def handle(self, **options):
-            url = "http://luthers-list.herokuapp.com/api/deptlist"
+            url = "https://sisuva.admin.virginia.edu/psc/ihprd/UVSS/SA/s/WEBLIB_HCX_CM.H_CLASS_SEARCH.FieldFormula.IScript_ClassSearchOptions?institution=UVA01&term=1228"
             response = requests.get(url)
             data = response.json()   
             subjects = data
@@ -20,7 +20,7 @@ class Command(BaseCommand):
                     current_department.save()
                         
                 
-                    course_url = "http://luthers-list.herokuapp.com/api/dept/" + str(current_department.slug) + "/"
+                    course_url = "https://sisuva.admin.virginia.edu/psc/ihprd/UVSS/SA/s/WEBLIB_HCX_CM.H_CLASS_SEARCH.FieldFormula.IScript_ClassSearch?institution=UVA01&term=1228&subject=CS&page=1" + str(current_department.slug) + "/"
                     print(course_url)
                     course_response = requests.get(course_url)
                     course_data = course_response.json()

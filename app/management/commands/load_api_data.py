@@ -8,18 +8,23 @@ class Command(BaseCommand):
             url = "https://sisuva.admin.virginia.edu/psc/ihprd/UVSS/SA/s/WEBLIB_HCX_CM.H_CLASS_SEARCH.FieldFormula.IScript_ClassSearchOptions?institution=UVA01&term=1228"
             response = requests.get(url)
             data = response.json()   
-            subjects = data
-            for s in subjects:
-                 # Make department object
-                current_department = Department(slug = s['subject'])
+            subjects = data['subjects']
+            
+
+            subject = subjects[0]
+            #print(subject['subject'])
+
+            for subject in subjects:
+             
+                current_department = Department(slug=subject['subject'])
 
                 #Search database to check if it already exists
                 d = Department.objects.all().filter(slug = current_department.slug)
                 if(not d):
-                
+            
                     current_department.save()
-                        
-                
+                    
+            
                     course_url = "https://sisuva.admin.virginia.edu/psc/ihprd/UVSS/SA/s/WEBLIB_HCX_CM.H_CLASS_SEARCH.FieldFormula.IScript_ClassSearch?institution=UVA01&term=1228&subject=CS&page=1" + str(current_department.slug) + "/"
                     print(course_url)
                     course_response = requests.get(course_url)
@@ -28,7 +33,7 @@ class Command(BaseCommand):
                     for c in courses:
                         if len(c['meetings']) > 0:
                             course = Course(
-                            
+                        
                             department_ptr = current_department,
                             dept_slug = current_department.slug,
                             instructor_name = c['instructor']['name'],
@@ -48,7 +53,7 @@ class Command(BaseCommand):
                             enrollment_available = c['enrollment_available'],
                             topic  = c['topic'],
 
-                                                
+                                            
                             location = c['meetings'][0]['facility_description'],
                             meeting_days = c['meetings'][0]['days'],
                             start_time = c['meetings'][0]['start_time'][0:2]+":"+c['meetings'][0]['start_time'][3:5],
@@ -56,7 +61,7 @@ class Command(BaseCommand):
                             )
                         else:
                             course = Course(
-                            
+                        
                             department_ptr = current_department,
                             instructor_name = c['instructor']['name'],
                             instructor_email = c['instructor']['email'],
@@ -74,11 +79,11 @@ class Command(BaseCommand):
                             enrollment_total = c['enrollment_total'],
                             enrollment_available = c['enrollment_available'],
                             topic  = c['topic'],
-                                                
+                                            
                             location = "--",
                             meeting_days = "--",
                             start_time = "--",
                             end_time = "--",
-                            
+                        
                             )                        
                         course.save()

@@ -18,11 +18,11 @@ env = environ.Env()
 environ.Env.read_env()
 
 if 'DATABASE_URL' in os.environ:
-    SITE_ID = 6 
+    SITE_ID = 8 
     SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
     SECURE_SSL_REDIRECT = True
 else:
-    SITE_ID = 7
+    SITE_ID = 10
     SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
     SECURE_SSL_REDIRECT = False
 
